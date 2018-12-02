@@ -5,7 +5,7 @@ from GeneralParser import GeneralParser
 
 class FTParser(GeneralParser):
     def get_full_description(self, entry):
-        r = requests.get(entry.link)
+        r = requests.get(entry.link + '?full=y')
         if r.status_code != 200:
             return ''
         html = BeautifulSoup(r.text, 'html5lib')
