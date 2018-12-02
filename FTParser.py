@@ -1,47 +1,38 @@
-import feedparser
-import my_log
 import re
-import string
-import urllib2
-import timestamp_fetcher
+import requests
+from bs4 import BeautifulSoup
 from GeneralParser import GeneralParser
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 class FTParser(GeneralParser):
-    def get_full_description(self,entry):
-        hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-               'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-               'Accept-Encoding': 'none',
-               'Accept-Language': 'en-US,en;q=0.8',
-               'Connection': 'keep-alive'}
-        req = urllib2.Request(entry.link+'?full=y', headers=hdr)
-        try:
-            page = urllib2.urlopen(req)
-        except urllib2.HTTPError, e:
-            my_log.write_to_log_file(e.fp.read())
+    def get_full_description(self, entry):
+        r = requests.get(entry.link)
+        if r.status_code != 200:
             return ''
-        html = page.read()
-        pattern = re.compile('<div id="story-body-container">.*?<div class="clearfloat"></div>', re.S)
-        strs = pattern.findall(html)
-        content = strs[0]
-        re_filter = re.compile('<script.*?/script>')
-        content = re_filter.sub('', content)
-        re_filter = re.compile('<div[^>]+>')
-        content = re_filter.sub('', content)
-        re_filter = re.compile('</div>')
-        content = re_filter.sub('', content)
+        html = BeautifulSoup(r.text, 'html5lib')
+        if html == None:
+            return ''
+        article_div = html.find('div', attrs={'id': 'story-body-container'})
+        if not article_div:
+            return ''
+        content = article_div.prettify()
+        #self.debug_print(content)
+        #pattern = re.compile('<div class="StandardArticleBody_body">.*?</div>', re.S)
+        #strs = pattern.findall(content)
+        #content = strs[0]
+        #pattern = re.compile('<div[^>]+>')
+        #content = pattern.sub('', content)
+        #pattern = re.compile('</div>')
+        #content = pattern.sub('', content)
         return content
 
 if __name__ == "__main__":
     feed_info = {}
-    feed_info['link'] = 'http://www.ftchinese.com/rss/hotstoryby7day'
-    feed_info['parser'] = 'FT'
-    feed_info['nick'] = 'FT'
+    feed_info['url'] = 'http://www.ftchinese.com/rss/hotstoryby7day'
+    feed_info['name'] = 'hotstoryby7day'
     feed_info['keywords'] = []
+    feed_info['update'] = ''
+    feed_info['conf_file'] = 'config.xml'
+    feed_info['log_file'] = 'log.log'
     parser = eval("FTParser(feed_info)")
     feed_data = parser.parse()
     print ' '*1 + 'feed_title: ' + feed_data['title']
