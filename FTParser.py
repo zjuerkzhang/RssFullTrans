@@ -14,6 +14,12 @@ class FTParser(GeneralParser):
         article_div = html.find('div', attrs={'id': 'story-body-container'})
         if not article_div:
             return ''
+        ad_divs = article_div.find_all('div', attrs={'class': 'o-ads'})
+        for ad in ad_divs:
+            ad.decompose()
+        scripts = article_div.find_all('script', attrs={'type': 'text/javascript'})
+        for s in scripts:
+            s.decompose()
         content = article_div.prettify()
         #self.debug_print(content)
         #pattern = re.compile('<div class="StandardArticleBody_body">.*?</div>', re.S)
