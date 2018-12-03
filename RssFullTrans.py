@@ -13,6 +13,7 @@ import PyRSS2Gen
 import datetime
 from ReutersParser import ReutersParser
 from FTParser import FTParser
+from NYTParser import NYTParser
 
 debug_switch_on   = 2
 log_file_name = 'log.log'
