@@ -12,6 +12,7 @@ import timestamp_utils
 import PyRSS2Gen
 import datetime
 from ReutersParser import ReutersParser
+from FTParser import FTParser
 
 debug_switch_on   = 2
 log_file_name = 'log.log'
@@ -51,9 +52,9 @@ def transfer_full_article(feed_conf):
                 description = entry['description'],
                 pubDate = entry['pubDate']))
         new_feed.write_xml(open('RSS_' + feed_conf['name'] + ".xml", "w"), 'utf-8')
-        file_utils.write_to_log_file(log_file_name, "***** new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
+        file_utils.write_to_log_file(log_file_name, "<<<*****>>> new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
     else:
-        file_utils.write_to_log_file(log_file_name, "***** no feed generated for " + feed_conf['name'])
+        file_utils.write_to_log_file(log_file_name, ">>>*****<<< no feed generated for " + feed_conf['name'])
 
 if __name__ == '__main__':
     config_file = 'config.xml'

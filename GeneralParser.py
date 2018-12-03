@@ -51,7 +51,7 @@ class GeneralParser(object):
                 self.new_update = entry_time
             return True
         else:
-            self.debug_print("===> [old one]")
+            #self.debug_print("===> [old one]")
             return False
 
     def __is_entry_contain_key(self, entry_title):
