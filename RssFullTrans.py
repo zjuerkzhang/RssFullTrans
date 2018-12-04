@@ -49,7 +49,7 @@ def transfer_full_article(feed_conf):
         'name': 'CNAnalysesNews',
         'update': ''}
     '''
-    file_utils.write_to_log_file(log_file_name, '-'*20)
+    file_utils.write_to_log_file(log_file_name, '-'*50)
     parser_instance_str = feed_conf['parser'] + "(feed_conf)"
     parser = eval(parser_instance_str)
     feed_data = parser.parse()
@@ -67,10 +67,10 @@ def transfer_full_article(feed_conf):
                 description = entry['description'],
                 pubDate = entry['pubDate']))
         rss_xml_file = 'RSS_' + feed_conf['name'] + ".xml"
-        if os.path.isfile(rss_xml_file):
+        if (len(new_feed.items) < max_entry_count_in_feed) and os.path.isfile(rss_xml_file):
+            old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
             file_utils.write_to_log_file(log_file_name, "--> Merge existing feed items")
             old_entries = parse_and_sort_existing_feed_items(rss_xml_file)
-            old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
             if len(old_entries) < old_entry_to_merge_count:
                 old_entry_to_merge_count = len(old_entries)
             i = 0
@@ -83,11 +83,11 @@ def transfer_full_article(feed_conf):
         file_utils.write_to_log_file(log_file_name, ">>>*****<<< no feed generated for " + feed_conf['name'])
 
 if __name__ == '__main__':
+    file_utils.write_to_log_file(log_file_name, "="*50)
 
     config_file = 'config.xml'
     feeds = config_utils.get_feeds_from_xml(config_file)
     for feed in feeds:
-        file_utils.write_to_log_file(log_file_name, "="*20)
         feed['conf_file'] = config_file
         feed['log_file'] = log_file_name
         transfer_full_article(feed)
