@@ -3,7 +3,7 @@ Created on 2013-7-10
 
 @author: kzhang
 '''
-
+import os
 import time
 import feedparser
 import config_utils
@@ -15,6 +15,7 @@ from ReutersParser import ReutersParser
 from FTParser import FTParser
 from NYTParser import NYTParser
 
+max_entry_count_in_feed = 10
 debug_switch_on   = 2
 log_file_name = 'log.log'
 
@@ -23,6 +24,19 @@ def debug_print(str):
         print str
     if debug_switch_on == 2:
         file_utils.write_to_log_file(log_file_name, str)
+
+def parse_and_sort_existing_feed_items(rss_xml_file):
+    feed = feedparser.parse(rss_xml_file)
+    items = []
+    for entry in feed.entries:
+        (yy, mm, dd, hh, MM, ss) = timestamp_utils.getTimeDecFromPubdate(entry['published'])
+        items.append(PyRSS2Gen.RSSItem(
+            title = entry.title,
+            link = entry.link,
+            description = entry.description,
+            pubDate = datetime.datetime(yy, mm, dd, hh, MM, ss)))
+    items = sorted(items, key=lambda x:x.pubDate, reverse=True)
+    return items
 
 def transfer_full_article(feed_conf):
     '''
@@ -52,15 +66,35 @@ def transfer_full_article(feed_conf):
                 link = entry['link'],
                 description = entry['description'],
                 pubDate = entry['pubDate']))
-        new_feed.write_xml(open('RSS_' + feed_conf['name'] + ".xml", "w"), 'utf-8')
+        rss_xml_file = 'RSS_' + feed_conf['name'] + ".xml"
+        if os.path.isfile(rss_xml_file):
+            file_utils.write_to_log_file(log_file_name, "--> Merge existing feed items")
+            old_entries = parse_and_sort_existing_feed_items(rss_xml_file)
+            old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
+            if len(old_entries) < old_entry_to_merge_count:
+                old_entry_to_merge_count = len(old_entries)
+            i = 0
+            while i < old_entry_to_merge_count:
+                new_feed.items.append(old_entries[i])
+                i = i + 1
+        new_feed.write_xml(open(rss_xml_file, "w"), 'utf-8')
         file_utils.write_to_log_file(log_file_name, "<<<*****>>> new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
     else:
         file_utils.write_to_log_file(log_file_name, ">>>*****<<< no feed generated for " + feed_conf['name'])
 
 if __name__ == '__main__':
+
     config_file = 'config.xml'
     feeds = config_utils.get_feeds_from_xml(config_file)
     for feed in feeds:
+        file_utils.write_to_log_file(log_file_name, "="*20)
         feed['conf_file'] = config_file
         feed['log_file'] = log_file_name
         transfer_full_article(feed)
+    '''
+    entries = parse_and_sort_existing_feed_items('RSS_CNAnalysesNews.xml')
+    for entry in entries:
+        print entry.title
+        print entry.link
+        print entry.pubDate
+    '''
