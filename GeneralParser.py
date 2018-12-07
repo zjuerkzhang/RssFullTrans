@@ -44,8 +44,8 @@ class GeneralParser(object):
 
     def __is_entry_new(self, entry):
         entry_time = "%04d%02d%02d%02d%02d%02d" % entry.published_parsed[:6]
-        self.debug_print("entry %s published at %s" % (entry.title, entry_time))
         if cmp(entry_time, self.update) > 0:
+            self.debug_print("entry %s published at %s" % (entry.title, entry_time))
             self.debug_print("===> New item")
             if cmp(entry_time, self.new_update) > 0:
                 self.new_update = entry_time
