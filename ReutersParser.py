@@ -14,6 +14,19 @@ class ReutersParser(GeneralParser):
         article_div = html.find('div', attrs={'class': 'StandardArticleBody_body'})
         if not article_div:
             return ''
+        figure = article_div.find('figure', attrs={'class': 'Image_zoom'})
+        if figure != None:
+            img_src = ''
+            imgs = figure.find_all('img')
+            if len(imgs) > 0:
+                img_src = imgs[0]['src']
+                pattern = re.compile('&w=\d+')
+                img_src = pattern.sub('', img_src) + '&w=800'
+            figure_sub_divs = figure.find_all('div')
+            for div in figure_sub_divs:
+                div.decompose()
+            if len(img_src) > 0:
+                figure.append(html.new_tag('img', src=img_src))
         content = article_div.prettify()
         #self.debug_print(content)
         #pattern = re.compile('<div class="StandardArticleBody_body">.*?</div>', re.S)
