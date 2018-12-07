@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20181207021520">
+    <feed update="20181207055136">
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>        
     </feed>

@@ -1,3 +1,5 @@
+import datetime
+
 def changeMonthValue(month):
     if month == 'Jan':
         return '01'
@@ -31,6 +33,18 @@ def getTimestampFromPubdate(pubdate):
     timestamp = timestamp.replace(':', '')
     return timestamp
 
+def getTimeZoneValue(timezoneStr):
+    if timezoneStr == 'GMT':
+        return 0
+    if timezoneStr[0] == '+' or timezoneStr[0] == '-':
+        return int(timezoneStr[:3])
+    return 0
+
+def adjustTimeByTimezon(year, month, date, hh, MM, ss, zone):
+    zone = 0 - zone
+    t = datetime.datetime(year, month, date, hh, MM, ss) + datetime.timedelta(hours=zone)
+    return (t.year, t.month, t.day, t.hour, t.minute, t.second)
+
 def getTimeDecFromPubdate(pubdate):
     date_strs = pubdate.split(' ')
     year = int(date_strs[3])
@@ -40,7 +54,8 @@ def getTimeDecFromPubdate(pubdate):
     hh = int(time_strs[0])
     MM = int(time_strs[1])
     ss = int(time_strs[2])
-    return (year, month, date, hh, MM, ss)
+    time_zone_value = getTimeZoneValue(date_strs[5])
+    return adjustTimeByTimezon(year, month, date, hh, MM, ss, time_zone_value)
 
 if __name__ == '__main__':
     pubdate = 'Fri, 30 Nov 2018 11:08:19 +0800'
