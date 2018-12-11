@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20181207055136">
+    <feed update="20181211013118">
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>        
     </feed>
-    <feed update="20181207015233">
+    <feed update="20181210093517">
         <url>http://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
         <keywords>
@@ -12,11 +12,11 @@
             <keyword>路透晚报</keyword>
         </keywords>
     </feed>
-    <feed update="20181206041035">
+    <feed update="20181207041434">
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>        
     </feed>
-    <feed update="20181207040004">
+    <feed update="20181211011040">
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
         <parser>NYTParser</parser>        
