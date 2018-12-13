@@ -14,6 +14,7 @@ import datetime
 from ReutersParser import ReutersParser
 from FTParser import FTParser
 from NYTParser import NYTParser
+from PengpaiParser import PengpaiParser
 
 max_entry_count_in_feed = 10
 debug_switch_on   = 2

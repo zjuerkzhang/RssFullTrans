@@ -40,7 +40,8 @@ class WebParser(object):
         return entry
 
     def __is_entry_new(self, entry):
-        entry_time = ("%04d" % entry['published'][0]) + ''.join(map(lambda x: ("%2d" % x), entry['published'][1:6]))
+        #self.debug_print("entry %s published at %s" % (entry['title'], entry_time))
+        entry_time = ("%04d" % entry['published'][0]) + ''.join(map(lambda x: ("%02d" % x), entry['published'][1:6]))
         if cmp(entry_time, self.update) > 0:
             self.debug_print("entry %s published at %s" % (entry['title'], entry_time))
             self.debug_print("===> New item")
