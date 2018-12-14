@@ -21,6 +21,11 @@ def get_feeds_from_xml(config_file = sample_config_file):
                     one_feed['name'] = filter(lambda x: len(x) > 0, one_feed['url'].split('/'))[-1]
                 else:
                     one_feed['name'] = name.text
+                title = feed.find("title")
+                if title == None:
+                    one_feed['title'] = ''
+                else:
+                    one_feed['title'] = title.text
                 if feed.attrib.has_key('update'):
                     one_feed['update'] = feed.attrib['update']
                 else:

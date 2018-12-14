@@ -48,6 +48,7 @@ def transfer_full_article(feed_conf):
             u'\u8def\u900f\u665a\u62a5'],
         'parser': 'ReuterParser',
         'name': 'CNAnalysesNews',
+        'title': ''
         'update': ''}
     '''
     file_utils.write_to_log_file(log_file_name, '-'*50)
@@ -56,7 +57,7 @@ def transfer_full_article(feed_conf):
     feed_data = parser.parse()
     if len(feed_data['entries']) > 0:
         new_feed = PyRSS2Gen.RSS2(
-               title = feed_data['title'],
+               title = feed_conf['title'] if len(feed_conf['title']) > 0 else feed_data['title'],
                link = feed_data['link'],
                description = feed_data['description'],
                #image = feed.feed.image,
