@@ -37,6 +37,9 @@ class GuanchaParser(WebParser):
         textPage = html.find('section', attrs={'class': 'textPageContInner'})
         if textPage == None:
             return entry
+        h1s = textPage.find_all('h1')
+        for h1 in h1s:
+            h1.decompose()
         entry['description'] = textPage.prettify()
         time_span = textPage.find('span', attrs={'class': 'time'})
         timestamp_str = ''
