@@ -31,7 +31,9 @@ class GuanchaParser(WebParser):
         if r.status_code != 200:
             return entry
         r.encoding = 'utf-8'
-        html = BeautifulSoup(r.text, 'html5lib')
+        pattern = re.compile('!wap\.jpg\"') # fix the img node
+        new_text = pattern.sub('">', r.text)
+        html = BeautifulSoup(new_text, 'html5lib')
         if html == None:
             return entry
         textPage = html.find('section', attrs={'class': 'textPageContInner'})
