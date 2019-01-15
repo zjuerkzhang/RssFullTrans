@@ -16,18 +16,18 @@
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20190115025248">
+    <feed update="20190115032811">
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
         <parser>NYTParser</parser>
     </feed>
-    <feed update="20190114135600">
+    <feed update="20190115011900">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiParser</parser>
     </feed>
-    <feed update="20190115021800">
+    <feed update="20190115040700">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
