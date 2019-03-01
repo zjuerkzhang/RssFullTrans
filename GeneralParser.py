@@ -31,6 +31,12 @@ class GeneralParser(object):
         else:
             self.key_flag = True
             self.keywords = feed_info['keywords']
+        if len(feed_info['blacklist']) <= 0:
+            self.black_flag = False
+            self.blacklist = []
+        else:
+            self.black_flag = True
+            self.blacklist = feed_info['blacklist']
 
     def debug_print(self, str):
         if self.debug_switch_on == 1:
@@ -64,6 +70,15 @@ class GeneralParser(object):
                 return True
         return False
 
+    def __is_entry_contain_blackitem(self, entry_title):
+        if not self.black_flag:
+            return False
+        for item in self.blacklist:
+            if entry_title.find(item) >= 0:
+                #self.debug_print("---> contain blackitem")
+                return True
+        return False
+
     def parse(self): 
         self.debug_print("last_time for %s %s" % (self.name, self.update))
         feed = feedparser.parse(self.url)
@@ -74,7 +89,7 @@ class GeneralParser(object):
                         'entries': [],
                     }
         for entry in feed.entries:
-            if not self.__is_entry_contain_key(entry.title):
+            if (not self.__is_entry_contain_key(entry.title)) or self.__is_entry_contain_blackitem(entry.title):
                 continue
             if self.__is_entry_new(entry):
                 (yy, mm, dd, hh, MM, ss) = timestamp_utils.getTimeDecFromPubdate(entry['published'])

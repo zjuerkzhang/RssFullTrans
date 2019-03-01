@@ -40,6 +40,11 @@ def get_feeds_from_xml(config_file = sample_config_file):
                 for kw in keywords:
                     kw_array.append(kw.text)
                 one_feed['keywords'] = kw_array
+                black_items = feed.iter("blackItem")
+                blk_array = []
+                for blk in black_items:
+                    blk_array.append(blk.text)
+                one_feed['blacklist'] = blk_array
             ret_feeds.append(one_feed)
         return ret_feeds
     else:

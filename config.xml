@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20190115015502">
+    <feed update="20190301041856">
         <title>路透时事要闻-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>
     </feed>
-    <feed update="20190115013049">
+    <feed update="20190301013045">
         <title>路透深度分析-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
@@ -14,24 +14,27 @@
             <keyword>路透晚报</keyword>
         </keywords>
     </feed>
-    <feed update="20190114070704">
+    <feed update="20190228085504">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20190115032811">
+    <feed update="20190301041937">
         <title>纽约时报国际纵览-全文</title>
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
         <parser>NYTParser</parser>
+        <blacklist>
+            <blackItem>简报</blackItem>
+        </blacklist>
     </feed>
-    <feed update="20190115011900">
+    <feed update="20190301002000">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiParser</parser>
     </feed>
-    <feed update="20190115040700">
+    <feed update="20190301040900">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>

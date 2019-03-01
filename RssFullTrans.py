@@ -17,7 +17,7 @@ from NYTParser import NYTParser
 from PengpaiParser import PengpaiParser
 from GuanchaParser import GuanchaParser
 
-max_entry_count_in_feed = 10
+max_entry_count_in_feed = 20
 debug_switch_on   = 2
 log_file_name = 'log.log'
 
