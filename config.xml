@@ -40,4 +40,10 @@
         <url>https://m.guancha.cn/</url>
         <parser>GuanchaParser</parser>
     </feed>
+    <feed update="20190300040900">
+        <title>喷嚏图卦</title>
+        <name>PentiNews</name>
+        <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&name=xilei</url>
+        <parser>PentiParser</parser>
+    </feed>
 </feeds>
