@@ -18,10 +18,16 @@ class PentiParser(WebParser):
         if html == None:
             #print "fail to bs"
             return entry
-        table = html.find('table', attrs={'style': 'table-layout:fixed;word-break:break-all;'})
-        if table == None:
+        div = html.find('div', attrs={'class': 'oblog_text'})
+        if div == None:
             return entry
-        entry['description'] = table.prettify()
+        scripts = div.find_all('script')
+        for s in scripts:
+            s.decompose()
+        inses = div.find_all('ins')
+        for ins in inses:
+            ins.decompose()
+        entry['description'] = div.prettify()
         #print entry['title']
         #print ' '.join(map(lambda x:'%d' % x, entry['published']))
         return entry
