@@ -17,6 +17,7 @@ from NYTParser import NYTParser
 from PengpaiParser import PengpaiParser
 from GuanchaParser import GuanchaParser
 from PentiParser import PentiParser
+from IfanrParser import IfanrParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
