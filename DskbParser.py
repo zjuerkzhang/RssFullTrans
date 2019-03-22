@@ -18,7 +18,7 @@ class DskbParser(WebParser):
             return [dt.year, dt.month, dt.day, 8, 0, 0]
 
     def __filter_wanted_pages(self, titles):
-        condition = [u'都市快报', u'杭州新闻', u'西湖新闻', u'北高峰', u'爱学习的狮子']
+        condition = [u'都市快报', u'杭州新闻', u'西湖新闻', u'北高峰', u'爱学习的狮子', u'杭州硅谷', u'城市早知道']
         patten = re.compile('[A-Z]\d+')
         filter_titles = []
         for t in titles:
