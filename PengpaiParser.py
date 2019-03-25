@@ -58,27 +58,32 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        r = requests.get(self.url)
-        if r.status_code != 200:
-            return feed
-        html = BeautifulSoup(r.text, 'html5lib')
-        if html == None:
-            return feed
-        ul = html.find('ul', attrs={'id': 'listhot0'})
-        if ul == None:
-            return feed
-        lis = ul.find_all('li')
-        for li in lis:
-            a = li.find('a')
-            if a == None:
+        sub_pages=["list_25429", "list_25462"]
+        for page in sub_pages:
+            url = self.url + page
+            r = requests.get(url)
+            if r.status_code != 200:
                 continue
-            entry = {
-                'title': a.string,
-                'link': self.url + a['href'],
-                'published': None,
-                'description': a.string
-            }
-            feed['entries'].append(entry)
+            html = BeautifulSoup(r.text, 'html5lib')
+            if html == None:
+                continue
+            news_lis = html.find_all('div', attrs={'class', 'news_li'})
+            if len(news_lis) > 10:
+                news_lis = news_lis[:10]
+            for li in news_lis:
+                h2 = li.find('h2')
+                if h2 == None:
+                    continue
+                a = h2.find('a')
+                if a == None:
+                    continue
+                entry = {
+                    'title': a.string,
+                    'link': self.url + a['href'],
+                    'published': None,
+                    'description': a.string
+                }
+                feed['entries'].append(entry)
         return feed
 
 
