@@ -58,7 +58,7 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        sub_pages=["list_25429", "list_25462"]
+        sub_pages=["list_25429", "list_25462", "list_25444"]
         for page in sub_pages:
             url = self.url + page
             r = requests.get(url)
