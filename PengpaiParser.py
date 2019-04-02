@@ -39,7 +39,7 @@ class PengpaiParser(WebParser):
         ps = time_div.find_all('p')
         timestamp_str = ''
         for p in ps:
-            if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', p.contents[0].strip()) != None:
+            if len(p.contents) > 0 and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', p.contents[0].strip()) != None:
                 timestamp_str = p.contents[0].strip()
         if timestamp_str == '':
             return entry
@@ -58,7 +58,7 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        sub_pages=["list_25429", "list_25462", "list_25444"]
+        sub_pages=["list_25429", "list_25444", "list_25491", "list_25635", "list_27224"]
         for page in sub_pages:
             url = self.url + page
             r = requests.get(url)
