@@ -1,7 +1,7 @@
 # RssFullTrans
 
 ## Demo
-[http://fullrss.ddns.net/rss/](http://bloghz.ddns.net/rss/)
+[https://fullrss.ddns.net/rss/](https://fullrss.ddns.net/rss/)
 
 ## config.xml
 ```
