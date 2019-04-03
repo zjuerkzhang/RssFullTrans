@@ -3,21 +3,10 @@ import file_utils
 import config_utils
 import datetime
 import timestamp_utils
+import operator as op
 
 class GeneralParser(object):
     def __init__(self, feed_info):
-        '''
-        feed = {
-            'url': 'http://cn.reuters.com/rssFeed/CNAnalysesNews/',
-            'keywords': [
-                u'\u8def\u900f\u65e9\u62a5',
-                u'\u8def\u900f\u665a\u62a5'],
-            'parser': 'ReuterParser',
-            'name': 'CNAnalysesNews',
-            'update': '',
-            'conf_file': 'config.xml,
-            'log_file': 'log.log'}
-        '''
         self.url = feed_info['url']
         self.name = feed_info['name']
         self.update = feed_info['update']
@@ -40,7 +29,7 @@ class GeneralParser(object):
 
     def debug_print(self, str):
         if self.debug_switch_on == 1:
-            print str
+            print(str)
         if self.debug_switch_on == 2:
             file_utils.write_to_log_file(self.log_file, str)
 
@@ -50,10 +39,10 @@ class GeneralParser(object):
 
     def __is_entry_new(self, entry):
         entry_time = "%04d%02d%02d%02d%02d%02d" % entry.published_parsed[:6]
-        if cmp(entry_time, self.update) > 0:
+        if op.gt(entry_time, self.update):
             self.debug_print("entry %s published at %s" % (entry.title, entry_time))
             self.debug_print("===> New item")
-            if cmp(entry_time, self.new_update) > 0:
+            if op.gt(entry_time, self.new_update):
                 self.new_update = entry_time
             return True
         else:
@@ -105,19 +94,24 @@ class GeneralParser(object):
         return feed_data
 
 if __name__ == "__main__":
+    feed_infos = config_utils.get_feeds_from_xml("config.xml")
+    feed_info = list(filter(lambda x:op.eq(x['name'], "CNAnalysesNews"), feed_infos))[0]
+    '''
     feed_info = {}
     feed_info['url'] = 'http://cn.reuters.com/rssFeed/CNAnalysesNews/'
     feed_info['name'] = 'CNAnalysesNews'
     feed_info['keywords'] = []
+    feed_info['blacklist'] = []
     feed_info['update'] = ''
+    '''
     feed_info['conf_file'] = 'config.xml'
     feed_info['log_file'] = 'log.log'
     parser = GeneralParser(feed_info)
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_title: ' + entry['title']
-        #print ' '*3 + 'entry_des: ' + entry['description']
-        #print ' '*3 + 'entry_content: ' + entry['content']
+        print(' '*3 + 'entry_title: ' + entry['title'])
+        #print(' '*3 + 'entry_des: ' + entry['description'])
+        #print(' '*3 + 'entry_content: ' + entry['content'])
 

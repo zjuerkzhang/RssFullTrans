@@ -2,6 +2,8 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from GeneralParser import GeneralParser
+import config_utils
+import operator as op
 
 class FTParser(GeneralParser):
     def get_full_description(self, entry):
@@ -32,18 +34,22 @@ class FTParser(GeneralParser):
         return content
 
 if __name__ == "__main__":
+    feed_infos = config_utils.get_feeds_from_xml("config.xml")
+    feed_info = list(filter(lambda x:op.eq(x['name'], "hotstoryby7day"), feed_infos))[0]
+    '''
     feed_info = {}
     feed_info['url'] = 'http://www.ftchinese.com/rss/hotstoryby7day'
     feed_info['name'] = 'hotstoryby7day'
     feed_info['keywords'] = []
+    '''
     feed_info['update'] = ''
     feed_info['conf_file'] = 'config.xml'
     feed_info['log_file'] = 'log.log'
     parser = eval("FTParser(feed_info)")
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_title: ' + entry['title']
-        print ' '*3 + 'entry_des: ' + entry['description']
+        print(' '*3 + 'entry_title: ' + entry['title'])
+        #print(' '*3 + 'entry_des: ' + entry['description'])
         #print ' '*3 + 'entry_content: ' + entry['content']

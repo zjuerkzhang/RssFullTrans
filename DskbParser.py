@@ -7,6 +7,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import operator as op
 
 class DskbParser(WebParser):
     def get_publish_time(self, file_path):
@@ -18,18 +19,18 @@ class DskbParser(WebParser):
             return [dt.year, dt.month, dt.day, 8, 0, 0]
 
     def __filter_wanted_pages(self, titles):
-        condition = [u'都市快报', u'杭州新闻', u'西湖新闻', u'北高峰', u'爱学习的狮子', u'杭州硅谷', u'城市早知道']
+        condition = ['都市快报', '杭州新闻', '西湖新闻', '北高峰', '爱学习的狮子', '杭州硅谷', '城市早知道']
         patten = re.compile('[A-Z]\d+')
         filter_titles = []
         for t in titles:
-            if len(filter(lambda x:t.find(x)>=0, condition)) > 0:
+            if len(list(filter(lambda x:t.find(x)>=0, condition))) > 0:
                 matches = patten.findall(t)
                 if len(matches) > 0:
                     filter_titles.append(matches[0])
         return filter_titles
     
     def __is_link_in_wanted_page(self, link, page_symbels):
-        return len(filter(lambda x:link.find(x) >= 0, page_symbels)) >0
+        return len(list(filter(lambda x:link.find(x) >= 0, page_symbels))) >0
     
     def get_full_description(self, entry):
         r = requests.get(entry['link'])
@@ -74,9 +75,9 @@ class DskbParser(WebParser):
         if page_list_div == None:
             return feed
         title_divs = page_list_div.find_all("div", attrs={'class': 'title'})
-        titles = filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs))  
+        titles = list(filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs)))
         title_symbs = self.__filter_wanted_pages(titles)
-        print title_symbs   
+        print(title_symbs)
         a_s = page_list_div.find_all("a")
         for a in a_s:
             if a.string != None and len(a.string.replace(' ', '')) > 0 and self.__is_link_in_wanted_page(a['href'], title_symbs):
@@ -90,20 +91,24 @@ class DskbParser(WebParser):
         return feed
 
 if __name__ == "__main__":
+    feed_infos = config_utils.get_feeds_from_xml("config.xml")
+    feed_info = list(filter(lambda x:op.eq(x['name'], "DskbNews"), feed_infos))[0]
+    '''
     feed_info = {}
     feed_info['url'] = 'http://mdaily.hangzhou.com.cn/dskb/index.html'
     feed_info['name'] = 'DskbNews'
     feed_info['keywords'] = []
     feed_info['update'] = ''
+    '''
     feed_info['conf_file'] = 'config.xml'
     feed_info['log_file'] = 'log.log'
     parser = DskbParser(feed_info)
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_link: ' + entry['link']
-        print ' '*3 + 'entry_title: ' + entry['title']
-        print ' '*3 + 'entry_des: ' + entry['description']
+        print(' '*3 + 'entry_link: ' + entry['link'])
+        print(' '*3 + 'entry_title: ' + entry['title'])
+        print(' '*3 + 'entry_des: ' + entry['description'])
         #print ' '*3 + 'entry_content: ' + entry['content']
 

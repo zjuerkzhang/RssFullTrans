@@ -18,7 +18,7 @@ def get_feeds_from_xml(config_file = sample_config_file):
                 one_feed['url'] = url.text
                 name = feed.find("name")
                 if name == None:
-                    one_feed['name'] = filter(lambda x: len(x) > 0, one_feed['url'].split('/'))[-1]
+                    one_feed['name'] = list(filter(lambda x: len(x) > 0, one_feed['url'].split('/')))[-1]
                 else:
                     one_feed['name'] = name.text
                 title = feed.find("title")
@@ -26,7 +26,7 @@ def get_feeds_from_xml(config_file = sample_config_file):
                     one_feed['title'] = ''
                 else:
                     one_feed['title'] = title.text
-                if feed.attrib.has_key('update'):
+                if feed.attrib.__contains__('update'):
                     one_feed['update'] = feed.attrib['update']
                 else:
                     one_feed['update'] = ''
@@ -55,7 +55,7 @@ def update_feed_timestamp(feed_url, timestamp, config_file = sample_config_file)
         tree = ET.parse(config_file)
         root = tree.getroot()
         feeds = root.findall("feed")
-        ret_feed = filter(lambda x:x.find('url').text == feed_url, feeds)
+        ret_feed = list(filter(lambda x:x.find('url').text == feed_url, feeds))
         if len(ret_feed) > 0:
             ret_feed[0].set('update', timestamp)
             tree.write(config_file, encoding='utf-8', xml_declaration=True)
@@ -63,8 +63,8 @@ def update_feed_timestamp(feed_url, timestamp, config_file = sample_config_file)
 if __name__ == '__main__':
     feeds = get_feeds_from_xml(sample_config_file)
     if len(feeds) > 0:
-        print len(feeds), "feeds are fetched from the file <" + sample_config_file + ">"
+        print(len(feeds), "feeds are fetched from the file <" + sample_config_file + ">")
         for feed in feeds:
-            print feed
+            print(feed)
 
     #update_feed_timestamp("http://cn.reuters.com/rssFeed/CNTopGenNews/", "20180909120000")

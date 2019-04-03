@@ -26,7 +26,7 @@ log_file_name = 'log.log'
 
 def debug_print(str):
     if debug_switch_on == 1:
-        print str
+        print(str)
     if debug_switch_on == 2:
         file_utils.write_to_log_file(log_file_name, str)
 
@@ -44,17 +44,6 @@ def parse_and_sort_existing_feed_items(rss_xml_file):
     return items
 
 def transfer_full_article(feed_conf):
-    '''
-    feed = {
-        'url': 'http://cn.reuters.com/rssFeed/CNAnalysesNews/',
-        'keywords': [
-            u'\u8def\u900f\u65e9\u62a5',
-            u'\u8def\u900f\u665a\u62a5'],
-        'parser': 'ReuterParser',
-        'name': 'CNAnalysesNews',
-        'title': ''
-        'update': ''}
-    '''
     file_utils.write_to_log_file(log_file_name, '-'*50)
     parser_instance_str = feed_conf['parser'] + "(feed_conf)"
     parser = eval(parser_instance_str)
@@ -83,7 +72,7 @@ def transfer_full_article(feed_conf):
             while i < old_entry_to_merge_count:
                 new_feed.items.append(old_entries[i])
                 i = i + 1
-        new_feed.write_xml(open(rss_xml_file, "w"), 'utf-8')
+        new_feed.write_xml(open(rss_xml_file, "w", encoding="utf-8"), encoding="utf-8")
         file_utils.write_to_log_file(log_file_name, "<<<*****>>> new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
     else:
         file_utils.write_to_log_file(log_file_name, ">>>*****<<< no feed generated for " + feed_conf['name'])

@@ -7,6 +7,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import operator as op
 
 class PentiParser(WebParser):
     def get_full_description(self, entry):
@@ -75,20 +76,24 @@ class PentiParser(WebParser):
         return feed
 
 if __name__ == "__main__":
+    feed_infos = config_utils.get_feeds_from_xml("config.xml")
+    feed_info = list(filter(lambda x:op.eq(x['name'], "PentiNews"), feed_infos))[0]
+    '''
     feed_info = {}
     feed_info['url'] = 'http://www.dapenti.com/blog/blog.asp?subjectid=70&name=xilei'
     feed_info['name'] = 'PentiNews'
     feed_info['keywords'] = []
     feed_info['update'] = '20190300000000'
+    '''
     feed_info['conf_file'] = 'config.xml'
     feed_info['log_file'] = 'log.log'
     parser = PentiParser(feed_info)
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_link: ' + entry['link']
-        print ' '*3 + 'entry_title: ' + entry['title']
-        print ' '*3 + 'entry_des: ' + entry['description']
-        print ' '*3 + 'published: ' + datetime.date.isoformat(entry['pubDate'])
+        print(' '*3 + 'entry_link: ' + entry['link'])
+        print(' '*3 + 'entry_title: ' + entry['title'])
+        print(' '*3 + 'entry_des: ' + entry['description'])
+        print(' '*3 + 'published: ' + datetime.date.isoformat(entry['pubDate']))
 
