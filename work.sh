@@ -12,6 +12,7 @@ ls |grep RSS_
 if [ $? -eq 0 ]
 then
 	mv RSS_*.xml $rss_dir/ 
+    cp index.html /root/fullrss.github.io/
     cd $rss_dir
     git add --all
     msg=`date`
