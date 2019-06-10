@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20190606015157">
+    <feed update="20190610042522">
         <title>路透时事要闻-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>
     </feed>
-    <feed update="20190610012349">
+    <feed update="20190610053811">
         <title>路透深度分析-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
@@ -16,7 +16,7 @@
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20190610005919">
+    <feed update="20190610034118">
         <title>纽约时报国际纵览-全文</title>
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
@@ -25,7 +25,7 @@
             <blackItem>简报</blackItem>
         </blacklist>
     </feed>
-    <feed update="20190609195805">
+    <feed update="20190610081641">
         <title>BBC China News-全文</title>
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
@@ -37,7 +37,7 @@
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiParser</parser>
     </feed>
-    <feed update="20190610015400">
+    <feed update="20190610084900">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
