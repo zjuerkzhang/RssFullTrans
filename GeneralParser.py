@@ -24,6 +24,10 @@ class GeneralParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
+        if feed_info.has_key('lock'):
+            self.lock = feed_info['lock']
+        else:
+            self.lock = None
         self.debug_switch_on = 2
         if len(feed_info['keywords']) <= 0:
             self.key_flag = False
@@ -46,7 +50,7 @@ class GeneralParser(object):
 
     def get_full_description(self, entry):
         ret_str = entry.description
-        return ret_str        
+        return ret_str
 
     def __is_entry_new(self, entry):
         entry_time = "%04d%02d%02d%02d%02d%02d" % entry.published_parsed[:6]
@@ -79,7 +83,7 @@ class GeneralParser(object):
                 return True
         return False
 
-    def parse(self): 
+    def parse(self):
         self.debug_print("last_time for %s %s" % (self.name, self.update))
         feed = feedparser.parse(self.url)
         feed_data = {
@@ -101,7 +105,11 @@ class GeneralParser(object):
                              }
                 feed_data['entries'].append(entry_data)
         if len(feed_data['entries']) > 0:
+            if (self.lock):
+                self.lock.acquire()
             config_utils.update_feed_timestamp(self.url, self.new_update, self.conf_file)
+            if (self.lock):
+                self.lock.release()
         return feed_data
 
 if __name__ == "__main__":

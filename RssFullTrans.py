@@ -10,6 +10,7 @@ import config_utils
 import file_utils
 import timestamp_utils
 import PyRSS2Gen
+import threading
 import datetime
 from ReutersParser import ReutersParser
 from FTParser import FTParser
@@ -23,13 +24,8 @@ from BbcParser import BbcParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
-log_file_name = 'log.log'
-
-def debug_print(str):
-    if debug_switch_on == 1:
-        print str
-    if debug_switch_on == 2:
-        file_utils.write_to_log_file(log_file_name, str)
+log_file_dir = "./log/"
+lockConfigFile = threading.Lock()
 
 def parse_and_sort_existing_feed_items(rss_xml_file):
     feed = feedparser.parse(rss_xml_file)
@@ -56,7 +52,7 @@ def transfer_full_article(feed_conf):
         'title': ''
         'update': ''}
     '''
-    file_utils.write_to_log_file(log_file_name, '-'*50)
+    file_utils.write_to_log_file(feed_conf['log_file'], '-'*50)
     parser_instance_str = feed_conf['parser'] + "(feed_conf)"
     parser = eval(parser_instance_str)
     feed_data = parser.parse()
@@ -76,7 +72,7 @@ def transfer_full_article(feed_conf):
         rss_xml_file = 'RSS_' + feed_conf['name'] + ".xml"
         if (len(new_feed.items) < max_entry_count_in_feed) and os.path.isfile(rss_xml_file):
             old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
-            file_utils.write_to_log_file(log_file_name, "--> Merge existing feed items")
+            file_utils.write_to_log_file(feed_conf['log_file'], "--> Merge existing feed items")
             old_entries = parse_and_sort_existing_feed_items(rss_xml_file)
             if len(old_entries) < old_entry_to_merge_count:
                 old_entry_to_merge_count = len(old_entries)
@@ -85,19 +81,25 @@ def transfer_full_article(feed_conf):
                 new_feed.items.append(old_entries[i])
                 i = i + 1
         new_feed.write_xml(open(rss_xml_file, "w"), 'utf-8')
-        file_utils.write_to_log_file(log_file_name, "<<<*****>>> new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
+        file_utils.write_to_log_file(feed_conf['log_file'], "<<<*****>>> new feed generated for " + feed_conf['name'] + '(' + feed_data['title'] + ')')
     else:
-        file_utils.write_to_log_file(log_file_name, ">>>*****<<< no feed generated for " + feed_conf['name'])
+        file_utils.write_to_log_file(feed_conf['log_file'], ">>>*****<<< no feed generated for " + feed_conf['name'])
 
 if __name__ == '__main__':
-    file_utils.write_to_log_file(log_file_name, "="*50)
-
+    thread_array = []
     config_file = 'config.xml'
     feeds = config_utils.get_feeds_from_xml(config_file)
     for feed in feeds:
         feed['conf_file'] = config_file
-        feed['log_file'] = log_file_name
-        transfer_full_article(feed)
+        feed['log_file'] = log_file_dir + feed['name'] + ".log"
+        feed['lock'] = lockConfigFile
+        thread_entry = threading.Thread(target=transfer_full_article, args=(feed,), name="thread-" + feed['name'])
+        thread_array.append(thread_entry)
+        thread_entry.start()
+        print("start %s" % thread_entry.name)
+    for thr in thread_array:
+        thr.join()
+        print("%s finished" % thr.name)
     '''
     entries = parse_and_sort_existing_feed_items('RSS_CNAnalysesNews.xml')
     for entry in entries:

@@ -22,6 +22,10 @@ class WebParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
+        if feed_info.has_key('lock'):
+            self.lock = feed_info['lock']
+        else:
+            self.lock = None
         self.debug_switch_on = 2
         if len(feed_info['keywords']) <= 0:
             self.key_flag = False
@@ -110,7 +114,11 @@ class WebParser(object):
                                  }
                     feed_data['entries'].append(entry_data)
         if len(feed_data['entries']) > 0:
+            if (self.lock):
+                self.lock.acquire()
             config_utils.update_feed_timestamp(self.url, self.new_update, self.conf_file)
+            if (self.lock):
+                self.lock.release()
         return feed_data
 
 if __name__ == "__main__":

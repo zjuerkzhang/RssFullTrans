@@ -1,25 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20190521063003">
+    <feed update="20190606015157">
         <title>路透时事要闻-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>
     </feed>
-    <feed update="20190503012138">
+    <feed update="20190610012349">
         <title>路透深度分析-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
-        <keywords>
-            <keyword>路透早报</keyword>
-            <keyword>路透晚报</keyword>
-        </keywords>
+        
     </feed>
-    <feed update="20190519171755">
+    <feed update="20190608223754">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20190520225412">
+    <feed update="20190610005919">
         <title>纽约时报国际纵览-全文</title>
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
@@ -28,37 +25,37 @@
             <blackItem>简报</blackItem>
         </blacklist>
     </feed>
-    <feed update="20190520191553">
+    <feed update="20190609195805">
         <title>BBC China News-全文</title>
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
     </feed>
-    <feed update="20190521062300">
+    <feed update="20190603004700">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiParser</parser>
     </feed>
-    <feed update="20190521063000">
+    <feed update="20190610015400">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
         <parser>GuanchaParser</parser>
     </feed>
-    <feed update="20190520000000">
+    <feed update="20190602000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20190521004451">
+    <feed update="20190602125737">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20190521000000">
+    <feed update="20190603000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>

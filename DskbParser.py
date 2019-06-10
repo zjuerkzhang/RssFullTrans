@@ -1,6 +1,4 @@
 #-*- coding: UTF-8 -*-
-import file_utils
-import config_utils
 import datetime
 import timestamp_utils
 import re
