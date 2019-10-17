@@ -56,8 +56,8 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        sub_pages=["list_25444", "list_25491", "list_25635", "list_27224", "list_25427", "list_25434", "list_25446"]
-        # [长三角，社论，美数课，澎湃评论, 澎湃人物, 100%公司, 智库报告]
+        sub_pages=["list_25444", "list_25491", "list_25635", "list_27224", "list_25427", "list_25434", "list_25488", "list_25489",  "list_25429", "list_25600"]
+        #         [长三角，      社论，         美数课，      澎湃评论,     澎湃人物,    100%公司,      中南海,      舆论场,        澎湃国际,     快看]
         for page in sub_pages:
             url = self.url + page
             r = requests.get(url)

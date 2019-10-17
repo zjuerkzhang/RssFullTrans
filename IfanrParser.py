@@ -27,7 +27,7 @@ class IfanrParser(WebParser):
                 'title': ob['post_title'],
                 'link': ob['post_url'],
                 'published': None,
-                'description': ob['post_content']
+                'description': ob['post_content'].replace(chr(8), "")
             }
             beijing_time = self.translate_timestamp(ob['created_at'])
             beijing_time.append(8)
@@ -53,4 +53,5 @@ if __name__ == "__main__":
         print ' '*3 + 'entry_title: ' + entry['title']
         print ' '*3 + 'entry_des: ' + entry['description']
         #print ' '*3 + 'entry_content: ' + entry['content']
-
+        if entry['description'].find(chr(8))>=0:
+            print "find \h"
