@@ -1,19 +1,21 @@
 #!/bin/bash
 export LANG="zh_CN.UTF-8"
 
-cd /root/RssFullTrans
+cd /home/kzhang/RssFullTrans
 mkdir -p log
+mkdir -p output
 
-rss_dir=/root/fullrss.github.io/rss
+html_dir=/home/kzhang/fullrss.github.io
+rss_dir=$html_dir/rss
 
-cp $rss_dir/RSS_*.xml ./
-python RssFullTrans.py
+cp $rss_dir/RSS_*.xml ./output/
+python src/RssFullTrans.py
 
-ls |grep RSS_
+ls ./output/|grep RSS_
 if [ $? -eq 0 ]
 then
-	mv RSS_*.xml $rss_dir/
-    cp index.html /root/fullrss.github.io/
+    mv output/RSS_*.xml $rss_dir/
+    cp html/index.html $html_dir
     cd $rss_dir
     git add --all
     msg=`date`

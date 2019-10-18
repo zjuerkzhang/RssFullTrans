@@ -37,8 +37,8 @@ if __name__ == "__main__":
     feed_info['name'] = 'hotstoryby7day'
     feed_info['keywords'] = []
     feed_info['update'] = ''
-    feed_info['conf_file'] = 'config.xml'
-    feed_info['log_file'] = 'log.log'
+    feed_info['conf_file'] = '../config/config.xml'
+    feed_info['log_file'] = '../log/log.log'
     parser = eval("FTParser(feed_info)")
     feed_data = parser.parse()
     print ' '*1 + 'feed_title: ' + feed_data['title']

@@ -24,7 +24,11 @@ from BbcParser import BbcParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
-log_file_dir = "./log/"
+
+self_dir = os.path.dirname(os.path.abspath(__file__))
+log_file_dir = self_dir + "/../log/"
+config_file_dir = self_dir + "/../config/"
+xml_file_dir = self_dir + "/../output/"
 lockConfigFile = threading.Lock()
 
 def parse_and_sort_existing_feed_items(rss_xml_file):
@@ -69,7 +73,7 @@ def transfer_full_article(feed_conf):
                 link = entry['link'],
                 description = entry['description'],
                 pubDate = entry['pubDate']))
-        rss_xml_file = 'RSS_' + feed_conf['name'] + ".xml"
+        rss_xml_file = xml_file_dir + 'RSS_' + feed_conf['name'] + ".xml"
         if (len(new_feed.items) < max_entry_count_in_feed) and os.path.isfile(rss_xml_file):
             old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
             file_utils.write_to_log_file(feed_conf['log_file'], "--> Merge existing feed items")
@@ -87,7 +91,7 @@ def transfer_full_article(feed_conf):
 
 if __name__ == '__main__':
     thread_array = []
-    config_file = 'config.xml'
+    config_file = config_file_dir + 'config.xml'
     feeds = config_utils.get_feeds_from_xml(config_file)
     for feed in feeds:
         feed['conf_file'] = config_file

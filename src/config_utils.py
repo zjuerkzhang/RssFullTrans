@@ -1,7 +1,8 @@
 import os
 import xml.etree.ElementTree as ET
 
-sample_config_file = "config.xml"
+self_dir = os.path.dirname(os.path.abspath(__file__))
+sample_config_file = self_dir + "/../config/config.xml"
 
 def get_feeds_from_xml(config_file = sample_config_file):
     if os.path.isfile(config_file):

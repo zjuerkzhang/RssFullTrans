@@ -28,13 +28,13 @@
             <blackItem>简报</blackItem>
         </blacklist>
     </feed>
-    <feed update="20191018035458">
+    <feed update="20191018050351">
         <title>BBC China News-全文</title>
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
     </feed>
-    <feed update="20191018040800">
+    <feed update="20191018055500">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -43,7 +43,7 @@
 	    <blackItem>习惯的养成</blackItem>
 	</blacklist>
     </feed>
-    <feed update="20191018041100">
+    <feed update="20191018054300">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
