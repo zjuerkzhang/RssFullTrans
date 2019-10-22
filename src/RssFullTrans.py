@@ -21,6 +21,7 @@ from PentiParser import PentiParser
 from IfanrParser import IfanrParser
 from DskbParser import DskbParser
 from BbcParser import BbcParser
+from MicroHistoryParser import MicroHistoryParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2

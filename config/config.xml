@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20191018020057">
+    <feed update="20191022035122">
         <title>路透时事要闻-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>
     </feed>
-    <feed update="20191007035003">
+    <feed update="20191019141913">
         <title>路透深度分析-全文</title>
         <url>http://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
@@ -14,12 +14,12 @@
 	    <keyword>汇市一周综述</keyword>
 	</keywords>
     </feed>
-    <feed update="20191015153957">
+    <feed update="20191021041445">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20191018043120">
+    <feed update="20191022045453">
         <title>纽约时报国际纵览-全文</title>
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
@@ -28,13 +28,13 @@
             <blackItem>简报</blackItem>
         </blacklist>
     </feed>
-    <feed update="20191018050351">
+    <feed update="20191022040732">
         <title>BBC China News-全文</title>
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
     </feed>
-    <feed update="20191018055500">
+    <feed update="20191022050900">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -43,25 +43,25 @@
 	    <blackItem>习惯的养成</blackItem>
 	</blacklist>
     </feed>
-    <feed update="20191018054300">
+    <feed update="20191022030900">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
         <parser>GuanchaParser</parser>
     </feed>
-    <feed update="20191017000000">
+    <feed update="20191021000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20191017165648">
+    <feed update="20191021165117">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20191018000000">
+    <feed update="20191022000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -69,5 +69,11 @@
         <blacklist>
             <blackItem>广告</blackItem>
         </blacklist>
+    </feed>
+    <feed update="20191021000000">
+        <title>微历史</title>
+        <name>MicroHistory</name>
+	<url>https://botanwang.com/taxonomy/term/11792</url>
+        <parser>MicroHistoryParser</parser>
     </feed>
 </feeds>

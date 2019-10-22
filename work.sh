@@ -16,6 +16,7 @@ if [ $? -eq 0 ]
 then
     mv output/RSS_*.xml $rss_dir/
     cp html/index.html $html_dir
+    cp html/index.html $rss_dir
     cd $rss_dir
     git add --all
     msg=`date`
