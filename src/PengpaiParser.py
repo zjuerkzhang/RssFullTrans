@@ -44,9 +44,15 @@ class PengpaiParser(WebParser):
         beijing_time = self.translate_timestamp(timestamp_str)
         beijing_time.append(8)
         entry['published'] = timestamp_utils.adjustTimeByTimezon(*beijing_time)
+        news_path = ''
+        path_div = html.find('div', attrs={'class': 'news_path'})
+        if path_div != None:
+            a_s = path_div.find_all('a')
+            if len(a_s) > 0:
+                news_path = path_div.prettify()
         txt_div = html.find('div', attrs={'class': 'news_txt'})
         if txt_div != None:
-            entry['description'] = txt_div.prettify()
+            entry['description'] = news_path + txt_div.prettify()
         return entry
 
     def get_abstract_feed(self):
