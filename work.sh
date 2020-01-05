@@ -1,11 +1,13 @@
 #!/bin/bash
 export LANG="zh_CN.UTF-8"
+export http_proxy="http://10.144.1.10:8080"
+export https_proxy="http://10.144.1.10:8080"
 
-cd /home/kzhang/RssFullTrans
+cd /home/kzhang/github/RssFullTrans
 mkdir -p log
 mkdir -p output
 
-html_dir=/home/kzhang/fullrss.github.io
+html_dir=/home/kzhang/github/fullrss.github.io
 rss_dir=$html_dir/rss
 
 cp $rss_dir/RSS_*.xml ./output/
@@ -24,3 +26,5 @@ then
     git push
 fi
 
+unset http_proxy
+unset https_proxy
