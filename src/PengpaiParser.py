@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class PengpaiParser(WebParser):
-    def translate_timestamp(self, str):
-        if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', str) != None:
-            [date_str, time_str] = str.split(' ')
+    def translate_timestamp(self, timeStr):
+        if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', timeStr) != None:
+            [date_str, time_str] = timeStr.split(' ')
             date_array = date_str.split('-')
             year = int(date_array[0])
             month = int(date_array[1])
@@ -27,12 +27,15 @@ class PengpaiParser(WebParser):
             entry['published'] = [1970, 1, 1, 0, 0, 0]
         r = requests.get(entry['link'])
         if r.status_code != 200:
+            self.debug_print("$$$ No valid response " + entry['title'] + ' ' + entry['link'])
             return entry
         html = BeautifulSoup(r.text, 'html5lib')
         if html == None:
+            self.debug_print("$$$ No valid html " + entry['title'] + ' ' + entry['link'])
             return entry
         time_div = html.find('div', attrs={'class': 'news_about'})
         if time_div == None:
+            self.debug_print("$$$ No valid timestamp " + entry['title'] + ' ' + entry['link'])
             return entry
         ps = time_div.find_all('p')
         timestamp_str = ''
@@ -40,6 +43,7 @@ class PengpaiParser(WebParser):
             if len(p.contents) > 0 and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', p.contents[0].strip()) != None:
                 timestamp_str = p.contents[0].strip()
         if timestamp_str == '':
+            self.debug_print("$$$ No valid time string " + entry['title'] + ' ' + entry['link'])
             return entry
         beijing_time = self.translate_timestamp(timestamp_str)
         beijing_time.append(8)
@@ -62,10 +66,19 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        sub_pages=["list_25444", "list_25491", "list_25635", "list_27224", "list_25427", "list_25434", "list_25488", "list_25489",  "list_25429", "list_25600"]
-        #         [长三角，      社论，         美数课，      澎湃评论,     澎湃人物,    100%公司,      中南海,      舆论场,        澎湃国际,     快看]
+        sub_pages = [
+            {'path': 'list_25444', 'count': 6}, #长三角
+            {'path': 'list_25491', 'count': 6}, #社论
+            {'path': 'list_25635', 'count': 6}, #美数课
+            {'path': 'list_27224', 'count': 6}, #澎湃评论
+            {'path': 'list_25427', 'count': 6}, #澎湃人物
+            {'path': 'list_25434', 'count': 10}, #100%公司
+            {'path': 'list_25488', 'count': 6}, #中南海
+            {'path': 'list_25489', 'count': 6}, #舆论场
+            {'path': 'list_25429', 'count': 10}, #澎湃国际
+        ]
         for page in sub_pages:
-            url = self.url + page
+            url = self.url + page['path']
             r = requests.get(url)
             if r.status_code != 200:
                 continue
@@ -73,8 +86,8 @@ class PengpaiParser(WebParser):
             if html == None:
                 continue
             news_lis = html.find_all('div', attrs={'class', 'news_li'})
-            if len(news_lis) > 10:
-                news_lis = news_lis[:10]
+            if len(news_lis) > page['count']:
+                news_lis = news_lis[:page['count']]
             for li in news_lis:
                 h2 = li.find('h2')
                 if h2 == None:
@@ -97,7 +110,7 @@ if __name__ == "__main__":
     feed_info['url'] = 'https://www.thepaper.cn/'
     feed_info['name'] = 'PengpaiNews'
     feed_info['keywords'] = []
-    feed_info['update'] = ''
+    feed_info['update'] = '20200106011400'
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
     parser = PengpaiParser(feed_info)

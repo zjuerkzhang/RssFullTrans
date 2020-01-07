@@ -42,11 +42,11 @@ class GeneralParser(object):
             self.black_flag = False
             self.blacklist = []
 
-    def debug_print(self, str):
+    def debug_print(self, content):
         if self.debug_switch_on == 1:
-            print str
+            print content
         if self.debug_switch_on == 2:
-            file_utils.write_to_log_file(self.log_file, str)
+            file_utils.write_to_log_file(self.log_file, content)
 
     def get_full_description(self, entry):
         ret_str = entry.description

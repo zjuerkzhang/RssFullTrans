@@ -2,9 +2,9 @@ import codecs
 import time
 import os
 
-def write_to_log_file(file_name, str):
+def write_to_log_file(file_name, content):
     log_file = codecs.open(file_name, 'a+','utf-8')
-    log_file.write(time.ctime()+'   '+str+'\n')
+    log_file.write(time.ctime()+'   '+content+'\n')
     log_file.close()
 
 def delete_file(file_name):

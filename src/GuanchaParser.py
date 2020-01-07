@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class GuanchaParser(WebParser):
-    def translate_timestamp(self, str):
-        if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', str) != None:
-            [date_str, time_str] = str.split(' ')
+    def translate_timestamp(self, timeStr):
+        if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', timeStr) != None:
+            [date_str, time_str] = timeStr.split(' ')
             date_array = date_str.split('-')
             year = int(date_array[0])
             month = int(date_array[1])
@@ -60,7 +60,7 @@ class GuanchaParser(WebParser):
         h3 = a.find('h3')
         if a['href'] != None and h3 != None:
             #print(h3.string)
-            return { 
+            return {
             'title': h3.string,
             'link': self.url + a['href'],
             'published': None,

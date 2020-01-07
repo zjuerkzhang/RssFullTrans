@@ -34,17 +34,19 @@ class WebParser(object):
             self.key_flag = True
             self.keywords = feed_info['keywords']
 
-    def debug_print(self, str):
+    def debug_print(self, content):
         if self.debug_switch_on == 1:
-            print str
+            print content
         if self.debug_switch_on == 2:
-            file_utils.write_to_log_file(self.log_file, str)
+            file_utils.write_to_log_file(self.log_file, content)
 
     def get_full_description(self, entry):
         return entry
 
     def __is_entry_new(self, entry):
         #self.debug_print("entry %s published at %s" % (entry['title'], entry_time))
+        if entry['published'] == None:
+            return False
         entry_time = ("%04d" % entry['published'][0]) + ''.join(map(lambda x: ("%02d" % x), entry['published'][1:6]))
         if cmp(entry_time, self.update) > 0:
             self.debug_print("entry %s published at %s" % (entry['title'], entry_time))
@@ -113,6 +115,7 @@ class WebParser(object):
                                      'pubDate': datetime.datetime(*entry['published'])
                                  }
                     feed_data['entries'].append(entry_data)
+        self.debug_print(str(len(feed_data['entries'])))
         if len(feed_data['entries']) > 0:
             if (self.lock):
                 self.lock.acquire()
