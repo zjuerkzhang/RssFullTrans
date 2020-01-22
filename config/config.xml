@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20200107000951">
+    <feed update="20200122050037">
         <title>路透时事要闻-全文</title>
         <url>https://cn.reuters.com/rssFeed/CNTopGenNews/</url>
         <parser>ReutersParser</parser>
     </feed>
-    <feed update="20200104011546">
+    <feed update="20200119080117">
         <title>路透深度分析-全文</title>
         <url>https://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
         <parser>ReutersParser</parser>
@@ -14,12 +14,12 @@
 	    <keyword>汇市一周综述</keyword>
 	</keywords>
     </feed>
-    <feed update="20200103083102">
+    <feed update="20200119200313">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20200106045619">
+    <feed update="20200122042453">
         <title>纽约时报国际纵览-全文</title>
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
@@ -28,31 +28,31 @@
             <blackItem>简报</blackItem>
         </blacklist>
     </feed>
-    <feed update="20200106132858">
+    <feed update="20200122071829">
         <title>BBC China News-全文</title>
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
     </feed>
-    <feed update="20200107000900">
+    <feed update="20200122073400">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
         <parser>GuanchaParser</parser>
     </feed>
-    <feed update="20200106000000">
+    <feed update="20200121000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20200107002758">
+    <feed update="20200121010652">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20200107000000">
+    <feed update="20200122000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -61,19 +61,19 @@
             <blackItem>广告</blackItem>
         </blacklist>
     </feed>
-    <feed update="20200105000000">
+    <feed update="20200109000000">
         <title>微历史</title>
         <name>MicroHistory</name>
 	    <url>https://botanwang.com/taxonomy/term/11792</url>
         <parser>MicroHistoryParser</parser>
     </feed>
-    <feed update="20200106000000">
+    <feed update="20200121000000">
         <title>新闻联播</title>
         <name>CctvNews</name>
 	    <url>https://cn.govopendata.com/xinwenlianbo/</url>
         <parser>CctvNewsParser</parser>
     </feed>
-    <feed update="20200107011300">
+    <feed update="20200122065600">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>

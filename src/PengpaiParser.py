@@ -67,14 +67,14 @@ class PengpaiParser(WebParser):
             'entries': []
         }
         sub_pages = [
-            {'path': 'list_25444', 'count': 6}, #长三角
-            {'path': 'list_25491', 'count': 6}, #社论
-            {'path': 'list_25635', 'count': 6}, #美数课
-            {'path': 'list_27224', 'count': 6}, #澎湃评论
-            {'path': 'list_25427', 'count': 6}, #澎湃人物
+            {'path': 'list_25444', 'count': 5}, #长三角
+            {'path': 'list_25491', 'count': 5}, #社论
+            {'path': 'list_25635', 'count': 5}, #美数课
+            {'path': 'list_27224', 'count': 5}, #澎湃评论
+            {'path': 'list_25427', 'count': 5}, #澎湃人物
             {'path': 'list_25434', 'count': 10}, #100%公司
-            {'path': 'list_25488', 'count': 6}, #中南海
-            {'path': 'list_25489', 'count': 6}, #舆论场
+            {'path': 'list_25488', 'count': 5}, #中南海
+            {'path': 'list_25489', 'count': 5}, #舆论场
             {'path': 'list_25429', 'count': 10}, #澎湃国际
         ]
         for page in sub_pages:

@@ -15,7 +15,7 @@ class CctvNewsParser(WebParser):
         if html == None:
             #print "fail to bs"
             return entry
-        div = html.find('div', attrs={'class': 'col-xl-8 col-md-12 col-sm-12'})
+        div = html.find('div', attrs={'class': 'col-md-8 col-sm-12'})
         if div == None:
             return entry
         scripts = div.find_all('script')
@@ -38,7 +38,7 @@ class CctvNewsParser(WebParser):
                 published = [int(ts_str[:4]), int(ts_str[4:6]), int(ts_str[6:]), 0, 0, 0]
             else:
                 published = None
-            return { 
+            return {
             'title': a.string,
             'link': '/'.join(self.url.split('/')[:-2]) + a['href'],
             'published': published,
