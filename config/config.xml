@@ -88,6 +88,30 @@
             <blackItem>习惯的养成</blackItem>
             <blackItem>H5</blackItem>
         </blacklist>
+        <subPageList>
+            <subPage>list_25434</subPage>
+            <subPage>list_25429</subPage>
+            <subPage>list_25462</subPage>
+            <subPage>list_27234</subPage>
+            <subPage>list_25491</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20200607123000">
+        <title>澎湃评论</title>
+        <name>PengpaiComments</name>
+        <url>https://www.thepaper.cn/</url>
+        <parser>PengpaiParser</parser>
+        <blacklist>
+            <blackItem>习惯的养成</blackItem>
+            <blackItem>H5</blackItem>
+        </blacklist>
+        <subPageList>
+            <subPage>list_25444</subPage>
+            <subPage>list_25635</subPage>
+            <subPage>list_27224</subPage>
+            <subPage>list_25427</subPage>
+            <subPage>list_25489</subPage>
+        </subPageList>
     </feed>
     <feed update="20200607171600">
         <title>技术讨论区</title>
