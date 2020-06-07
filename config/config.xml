@@ -40,7 +40,7 @@
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
     </feed>
-    <feed update="20200607121600">
+    <feed update="20200607135400">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
@@ -96,7 +96,7 @@
             <subPage>list_25491</subPage>
         </subPageList>
     </feed>
-    <feed update="20200607123000">
+    <feed update="20200604123000">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
