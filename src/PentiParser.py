@@ -2,13 +2,12 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class PentiParser(WebParser):
     def get_full_description(self, entry):
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             return entry
         r.encoding = 'gb2312'
@@ -41,7 +40,7 @@ class PentiParser(WebParser):
                 published = [int(ts_str[:4]), int(ts_str[4:6]), int(ts_str[6:]), 0, 0, 0]
             else:
                 published = None
-            return { 
+            return {
             'title': a.string,
             'link': '/'.join(self.url.split('/')[:-1]) + '/' + a['href'],
             'published': published,
@@ -57,7 +56,7 @@ class PentiParser(WebParser):
             'description': 'Penti News',
             'entries': []
         }
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         r.encoding = 'gb2312'

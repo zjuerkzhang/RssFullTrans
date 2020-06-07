@@ -1,11 +1,10 @@
 import re
-import requests
 from bs4 import BeautifulSoup
 from GeneralParser import GeneralParser
 
 class NYTParser(GeneralParser):
     def get_full_description(self, entry):
-        r = requests.get(entry.link)
+        r = self.httpClient.get(entry.link)
         if r.status_code != 200:
             return ''
         html = BeautifulSoup(r.text, 'html5lib')

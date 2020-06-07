@@ -2,7 +2,6 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
@@ -25,12 +24,12 @@ class DskbParser(WebParser):
                 if len(matches) > 0:
                     filter_titles.append(matches[0])
         return filter_titles
-    
+
     def __is_link_in_wanted_page(self, link, page_symbels):
         return len(filter(lambda x:link.find(x) >= 0, page_symbels)) >0
-    
+
     def get_full_description(self, entry):
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             return entry
         r.encoding = 'utf-8'
@@ -41,7 +40,7 @@ class DskbParser(WebParser):
         if div != None:
             entry['description'] = div.prettify()
         return entry
-        
+
     def get_abstract_feed(self):
         feed = {
             'title': 'Dskb News',
@@ -50,7 +49,7 @@ class DskbParser(WebParser):
             'entries': []
         }
         site_url = '/'.join(self.url.split('/')[:-1])
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         strs = r.text.split('"')
@@ -60,7 +59,7 @@ class DskbParser(WebParser):
         beijing_time = self.get_publish_time(strs[1])
         beijing_time.append(8)
         published = timestamp_utils.adjustTimeByTimezon(*beijing_time)
-        r = requests.get(actual_url)
+        r = self.httpClient.get(actual_url)
         if r.status_code != 200:
             return feed
         r.encoding = 'utf-8'
@@ -72,9 +71,9 @@ class DskbParser(WebParser):
         if page_list_div == None:
             return feed
         title_divs = page_list_div.find_all("div", attrs={'class': 'title'})
-        titles = filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs))  
+        titles = filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs))
         title_symbs = self.__filter_wanted_pages(titles)
-        print title_symbs   
+        print title_symbs
         a_s = page_list_div.find_all("a")
         for a in a_s:
             if a.string != None and len(a.string.replace(' ', '')) > 0 and self.__is_link_in_wanted_page(a['href'], title_symbs):

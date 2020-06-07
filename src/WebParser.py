@@ -1,6 +1,7 @@
 import file_utils
 import config_utils
 import datetime
+import requests
 
 class WebParser(object):
     def __init__(self, feed_info):
@@ -17,6 +18,7 @@ class WebParser(object):
             'log_file': 'log.log'}
         '''
         self.url = feed_info['url']
+        self.httpClient = requests.Session()
         self.name = feed_info['name']
         self.update = feed_info['update']
         self.new_update = self.update

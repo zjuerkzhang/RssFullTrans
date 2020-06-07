@@ -3,6 +3,7 @@ import file_utils
 import config_utils
 import datetime
 import timestamp_utils
+import requests
 
 class GeneralParser(object):
     def __init__(self, feed_info):
@@ -19,6 +20,7 @@ class GeneralParser(object):
             'log_file': 'log.log'}
         '''
         self.url = feed_info['url']
+        self.httpClient = requests.Session()
         self.name = feed_info['name']
         self.update = feed_info['update']
         self.new_update = self.update

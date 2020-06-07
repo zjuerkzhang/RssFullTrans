@@ -2,13 +2,12 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class MicroHistoryParser(WebParser):
     def get_full_description(self, entry):
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             return entry
         html = BeautifulSoup(r.text, 'html5lib')
@@ -60,7 +59,7 @@ class MicroHistoryParser(WebParser):
             'description': 'Micro History News',
             'entries': []
         }
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         html = BeautifulSoup(r.text, 'html5lib')

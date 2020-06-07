@@ -1,18 +1,27 @@
 import re
-import requests
 from bs4 import BeautifulSoup
 from GeneralParser import GeneralParser
 
 class FTParser(GeneralParser):
     def get_full_description(self, entry):
-        r = requests.get(entry.link + '?full=y')
-        if r.status_code != 200:
-            return ''
-        html = BeautifulSoup(r.text, 'html5lib')
-        if html == None:
-            return ''
-        article_div = html.find('div', attrs={'id': 'story-body-container'})
+        urls = [
+            entry.link + '?full=y',
+            entry.link + '?full=y&exclusive'
+        ]
+        for url in urls:
+            r = self.httpClient.get(url)
+            if r.status_code != 200:
+                continue
+            html = BeautifulSoup(r.text, "html5lib")
+            if html == None:
+                continue
+            article_div = html.find('div', attrs={'id': 'story-body-container'})
+            if not article_div:
+                continue
+            break
         if not article_div:
+            r = self.httpClient.get(entry.link + '?full=y&exclusive' )
+
             return ''
         ad_divs = article_div.find_all('div', attrs={'class': 'o-ads'})
         for ad in ad_divs:
@@ -33,8 +42,8 @@ class FTParser(GeneralParser):
 
 if __name__ == "__main__":
     feed_info = {}
-    feed_info['url'] = 'http://www.ftchinese.com/rss/hotstoryby7day'
-    feed_info['name'] = 'hotstoryby7day'
+    feed_info['url'] = 'http://www.ftchinese.com/rss/news'
+    feed_info['name'] = 'FtFocusNews'
     feed_info['keywords'] = []
     feed_info['update'] = ''
     feed_info['conf_file'] = '../config/config.xml'

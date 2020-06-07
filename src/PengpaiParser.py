@@ -2,7 +2,6 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
@@ -25,7 +24,7 @@ class PengpaiParser(WebParser):
     def get_full_description(self, entry):
         if entry['published'] == None:
             entry['published'] = [1970, 1, 1, 0, 0, 0]
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             self.debug_print("$$$ No valid response " + entry['title'] + ' ' + entry['link'])
             return entry
@@ -79,7 +78,7 @@ class PengpaiParser(WebParser):
         ]
         for page in sub_pages:
             url = self.url + page['path']
-            r = requests.get(url)
+            r = self.httpClient.get(url)
             if r.status_code != 200:
                 continue
             html = BeautifulSoup(r.text, 'html5lib')

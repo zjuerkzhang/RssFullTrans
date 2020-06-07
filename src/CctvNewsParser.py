@@ -2,20 +2,19 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class CctvNewsParser(WebParser):
     def get_full_description(self, entry):
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             return entry
         html = BeautifulSoup(r.text, 'html5lib')
         if html == None:
             #print "fail to bs"
             return entry
-        div = html.find('div', attrs={'class': 'col-md-8 col-sm-12'})
+        div = html.find('div', attrs={'class': 'col-md-9 col-sm-12'})
         if div == None:
             return entry
         scripts = div.find_all('script')
@@ -54,7 +53,7 @@ class CctvNewsParser(WebParser):
             'description': 'CCTV News',
             'entries': []
         }
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         #r.encoding = 'gb2312'

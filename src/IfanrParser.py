@@ -2,7 +2,6 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
@@ -18,7 +17,7 @@ class IfanrParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         jsdata = r.json()

@@ -1,7 +1,7 @@
 #!/bin/bash
 export LANG="zh_CN.UTF-8"
-export http_proxy="http://10.144.1.10:8080"
-export https_proxy="http://10.144.1.10:8080"
+export http_proxy="http://10.158.100.2:8080"
+export https_proxy="http://10.158.100.2:8080"
 
 cd /home/kzhang/github/RssFullTrans
 mkdir -p log
@@ -23,7 +23,9 @@ then
     git add --all
     msg=`date`
     git commit -m "$msg"
-    git push
+    git reset --soft HEAD~2
+    git commit -m "`date`"
+    git push --force
 fi
 
 unset http_proxy

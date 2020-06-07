@@ -2,7 +2,6 @@
 import datetime
 import timestamp_utils
 import re
-import requests
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 
@@ -25,7 +24,7 @@ class GuanchaParser(WebParser):
     def get_full_description(self, entry):
         if entry['published'] == None:
             entry['published'] = [1970, 1, 1, 0, 0, 0]
-        r = requests.get(entry['link'])
+        r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
             return entry
         r.encoding = 'utf-8'
@@ -76,7 +75,7 @@ class GuanchaParser(WebParser):
             'description': 'Guancha News',
             'entries': []
         }
-        r = requests.get(self.url)
+        r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
         r.encoding = 'utf-8'
