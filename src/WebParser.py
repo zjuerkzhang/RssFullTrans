@@ -35,6 +35,12 @@ class WebParser(object):
         else:
             self.key_flag = True
             self.keywords = feed_info['keywords']
+        if len(feed_info['subPages']) <= 0:
+            self.subPage_flag = False
+            self.subPages = []
+        else:
+            self.subPage_flag = True
+            self.subPages = feed_info['subPages']
 
     def debug_print(self, content):
         if self.debug_switch_on == 1:

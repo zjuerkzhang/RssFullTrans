@@ -65,17 +65,11 @@ class PengpaiParser(WebParser):
             'description': 'PengPai News',
             'entries': []
         }
-        sub_pages = [
-            {'path': 'list_25444', 'count': 5}, #长三角
-            {'path': 'list_25491', 'count': 5}, #社论
-            {'path': 'list_25635', 'count': 5}, #美数课
-            {'path': 'list_27224', 'count': 5}, #澎湃评论
-            {'path': 'list_25427', 'count': 5}, #澎湃人物
-            {'path': 'list_25434', 'count': 10}, #100%公司
-            {'path': 'list_25488', 'count': 5}, #中南海
-            {'path': 'list_25489', 'count': 5}, #舆论场
-            {'path': 'list_25429', 'count': 10}, #澎湃国际
-        ]
+        if self.subPage_flag:
+            sub_pages = map(lambda x: {'path': x, 'count': 5}, self.subPages)
+        else:
+            return feed
+
         for page in sub_pages:
             url = self.url + page['path']
             r = self.httpClient.get(url)
@@ -109,6 +103,7 @@ if __name__ == "__main__":
     feed_info['url'] = 'https://www.thepaper.cn/'
     feed_info['name'] = 'PengpaiNews'
     feed_info['keywords'] = []
+    feed_info['subPages'] = ['list_25491', 'list_25635']
     feed_info['update'] = '20200106011400'
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
