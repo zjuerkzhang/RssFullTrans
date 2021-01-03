@@ -4,6 +4,7 @@ import timestamp_utils
 import re
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import os
 
 class PentiParser(WebParser):
     def get_full_description(self, entry):
@@ -15,7 +16,7 @@ class PentiParser(WebParser):
         if html == None:
             #print "fail to bs"
             return entry
-        div = html.find('div', attrs={'class': 'oblog_text'})
+        div = html.find('table', attrs={'class': 'ke-zeroborder', 'style': 'table-layout:fixed;word-break:break-all;'})
         if div == None:
             return entry
         scripts = div.find_all('script')
@@ -33,8 +34,9 @@ class PentiParser(WebParser):
         if a == None:
             return None
         if a['href'] != None and a.string != None:
-            #print(h3.string)
             re_found = re.search('\d{8}', a.string)
+            if re_found == None:
+                return None
             ts_str = a.string[re_found.start():re_found.end()]
             if len(ts_str) == 8:
                 published = [int(ts_str[:4]), int(ts_str[4:6]), int(ts_str[6:]), 0, 0, 0]
@@ -72,13 +74,15 @@ class PentiParser(WebParser):
         return feed
 
 if __name__ == "__main__":
+    self_dir = os.path.dirname(os.path.abspath(__file__))
     feed_info = {}
     feed_info['url'] = 'http://www.dapenti.com/blog/blog.asp?subjectid=70&name=xilei'
     feed_info['name'] = 'PentiNews'
     feed_info['keywords'] = []
     feed_info['update'] = '20190300000000'
     feed_info['conf_file'] = '../config/config.xml'
-    feed_info['log_file'] = '../log/log.log'
+    feed_info['log_file'] = self_dir + '/../log/log.log'
+    feed_info['subPages'] = []
     parser = PentiParser(feed_info)
     feed_data = parser.parse()
     print ' '*1 + 'feed_title: ' + feed_data['title']

@@ -13,6 +13,9 @@ rss_dir=$html_dir/rss
 cp $rss_dir/RSS_*.xml ./output/
 python src/RssFullTrans.py
 
+#export http_proxy="http://10.144.1.10:8080"
+#export https_proxy="http://10.144.1.10:8080"
+
 ls ./output/|grep RSS_
 if [ $? -eq 0 ]
 then

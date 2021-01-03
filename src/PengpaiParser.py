@@ -55,7 +55,7 @@ class PengpaiParser(WebParser):
                 news_path = path_div.prettify()
         txt_div = html.find('div', attrs={'class': 'news_txt'})
         if txt_div != None:
-            entry['description'] = news_path + txt_div.prettify()
+            entry['description'] = news_path + '<br>' + txt_div.prettify()
         return entry
 
     def get_abstract_feed(self):
