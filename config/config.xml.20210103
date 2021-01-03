@@ -1,5 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
+    <feed update="20200618103050">
+        <title>路透时事要闻-全文</title>
+        <url>https://cn.reuters.com/rssFeed/CNTopGenNews/</url>
+        <parser>ReutersParser</parser>
+    </feed>
+    <feed update="20200613010810">
+        <title>路透深度分析-全文</title>
+        <url>https://cn.reuters.com/rssFeed/CNAnalysesNews/</url>
+        <parser>ReutersParser</parser>
+	    <keywords>
+	        <keyword>一周经济焦点</keyword>
+	        <keyword>汇市一周综述</keyword>
+	    </keywords>
+    </feed>
     <feed update="20210102095714">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
