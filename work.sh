@@ -26,7 +26,7 @@ then
     git add --all
     msg=`date`
     git commit -m "$msg"
-    git reset --soft HEAD~2
+    git reset --soft 9a4a6017883d78fd382ffc61c4164d73331ddd02
     git commit -m "`date`"
     git push --force
 fi
