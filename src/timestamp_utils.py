@@ -59,6 +59,6 @@ def getTimeDecFromPubdate(pubdate):
 
 if __name__ == '__main__':
     pubdate = 'Fri, 30 Nov 2018 11:08:19 +0800'
-    print pubdate
-    print getTimestampFromPubdate(pubdate)
-    print getTimeDecFromPubdate(pubdate)
+    print(pubdate)
+    print(getTimestampFromPubdate(pubdate))
+    print(getTimeDecFromPubdate(pubdate))

@@ -41,6 +41,12 @@ class WebParser(object):
         else:
             self.subPage_flag = True
             self.subPages = feed_info['subPages']
+        if feed_info.has_key('blacklist') and len(feed_info['blacklist']) > 0:
+            self.black_flag = True
+            self.blacklist = feed_info['blacklist']
+        else:
+            self.black_flag = False
+            self.blacklist = []
 
     def debug_print(self, content):
         if self.debug_switch_on == 1:
@@ -76,6 +82,15 @@ class WebParser(object):
                 return True
         return False
 
+    def __is_entry_contain_blackitem(self, entry_title):
+        if not self.black_flag:
+            return False
+        for item in self.blacklist:
+            if entry_title.find(item) >= 0:
+                #self.debug_print("---> contain blackitem")
+                return True
+        return False
+
     def get_abstract_feed(self):
         return {
             'title': self.name,
@@ -101,7 +116,7 @@ class WebParser(object):
                         'entries': [],
                     }
         for entry in feed['entries']:
-            if not self.__is_entry_contain_key(entry['title']):
+            if (not self.__is_entry_contain_key(entry['title'])) or self.__is_entry_contain_blackitem(entry['title']):
                 continue
             if entry['published'] != None:
                 if self.__is_entry_new(entry):

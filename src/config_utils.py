@@ -69,8 +69,8 @@ def update_feed_timestamp(feed_url, timestamp, config_file = sample_config_file)
 if __name__ == '__main__':
     feeds = get_feeds_from_xml(sample_config_file)
     if len(feeds) > 0:
-        print len(feeds), "feeds are fetched from the file <" + sample_config_file + ">"
+        print("%d feeds are fetched from the file <" + sample_config_file + ">", len(feeds))
         for feed in feeds:
-            print feed
+            print(feed)
 
     #update_feed_timestamp("http://cn.reuters.com/rssFeed/CNTopGenNews/", "20180909120000")
