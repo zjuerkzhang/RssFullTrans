@@ -19,14 +19,14 @@ class DskbParser(WebParser):
         patten = re.compile('[A-Z]\d+')
         filter_titles = []
         for t in titles:
-            if len(filter(lambda x:t.find(x)>=0, condition)) > 0:
+            if len(list(filter(lambda x:t.find(x)>=0, condition))) > 0:
                 matches = patten.findall(t)
                 if len(matches) > 0:
                     filter_titles.append(matches[0])
         return filter_titles
 
     def __is_link_in_wanted_page(self, link, page_symbels):
-        return len(filter(lambda x:link.find(x) >= 0, page_symbels)) >0
+        return len(list(filter(lambda x:link.find(x) >= 0, page_symbels))) >0
 
     def get_full_description(self, entry):
         r = self.httpClient.get(entry['link'])
@@ -71,7 +71,7 @@ class DskbParser(WebParser):
         if page_list_div == None:
             return feed
         title_divs = page_list_div.find_all("div", attrs={'class': 'title'})
-        titles = filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs))
+        titles = list(filter(lambda x:len(x)>0, map(lambda x:x.string if x.string!=None else '', title_divs)))
         title_symbs = self.__filter_wanted_pages(titles)
         print(title_symbs)
         a_s = page_list_div.find_all("a")

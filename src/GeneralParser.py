@@ -26,18 +26,18 @@ class GeneralParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
-        if feed_info.has_key('lock'):
+        if 'lock' in feed_info.keys():
             self.lock = feed_info['lock']
         else:
             self.lock = None
         self.debug_switch_on = 2
-        if feed_info.has_key('keywords') and len(feed_info['keywords']) > 0:
+        if 'keywords' in feed_info.keys() and len(feed_info['keywords']) > 0:
             self.key_flag = True
             self.keywords = feed_info['keywords']
         else:
             self.key_flag = False
             self.keywords = []
-        if feed_info.has_key('blacklist') and len(feed_info['blacklist']) > 0:
+        if 'blacklist' in feed_info.keys() and len(feed_info['blacklist']) > 0:
             self.black_flag = True
             self.blacklist = feed_info['blacklist']
         else:

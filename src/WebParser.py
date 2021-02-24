@@ -24,7 +24,7 @@ class WebParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
-        if feed_info.has_key('lock'):
+        if 'lock' in feed_info.keys():
             self.lock = feed_info['lock']
         else:
             self.lock = None
@@ -41,7 +41,7 @@ class WebParser(object):
         else:
             self.subPage_flag = True
             self.subPages = feed_info['subPages']
-        if feed_info.has_key('blacklist') and len(feed_info['blacklist']) > 0:
+        if 'blacklist' in feed_info.keys() and len(feed_info['blacklist']) > 0:
             self.black_flag = True
             self.blacklist = feed_info['blacklist']
         else:
