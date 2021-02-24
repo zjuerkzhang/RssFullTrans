@@ -85,11 +85,11 @@ if __name__ == "__main__":
     feed_info['subPages'] = []
     parser = PentiParser(feed_info)
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_link: ' + entry['link']
-        print ' '*3 + 'entry_title: ' + entry['title']
-        print ' '*3 + 'entry_des: ' + entry['description']
-        print ' '*3 + 'published: ' + datetime.date.isoformat(entry['pubDate'])
+        print(' '*3 + 'entry_link: ' + entry['link'])
+        print(' '*3 + 'entry_title: ' + entry['title'])
+        print(' '*3 + 'entry_des: ' + entry['description'])
+        print(' '*3 + 'published: ' + datetime.date.isoformat(entry['pubDate']))
 

@@ -46,7 +46,7 @@ class GeneralParser(object):
 
     def debug_print(self, content):
         if self.debug_switch_on == 1:
-            print content
+            print(content)
         if self.debug_switch_on == 2:
             file_utils.write_to_log_file(self.log_file, content)
 
@@ -124,10 +124,10 @@ if __name__ == "__main__":
     feed_info['log_file'] = '../log/log.log'
     parser = GeneralParser(feed_info)
     feed_data = parser.parse()
-    print ' '*1 + 'feed_title: ' + feed_data['title']
-    print ' '*1 + 'entries: '
+    print(' '*1 + 'feed_title: ' + feed_data['title'])
+    print(' '*1 + 'entries: ')
     for entry in feed_data['entries']:
-        print ' '*3 + 'entry_title: ' + entry['title']
+        print(' '*3 + 'entry_title: ' + entry['title'])
         #print ' '*3 + 'entry_des: ' + entry['description']
         #print ' '*3 + 'entry_content: ' + entry['content']
 
