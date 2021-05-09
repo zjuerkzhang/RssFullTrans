@@ -11,7 +11,7 @@ html_dir=/home/kzhang/github/fullrss.github.io
 rss_dir=$html_dir/rss
 
 cp $rss_dir/RSS_*.xml ./output/
-python src/RssFullTrans.py
+python3 src/RssFullTrans.py
 
 #export http_proxy="http://10.144.1.10:8080"
 #export https_proxy="http://10.144.1.10:8080"
