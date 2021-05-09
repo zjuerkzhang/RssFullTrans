@@ -52,6 +52,7 @@
         <blacklist>
             <blackItem>广告</blackItem>
             <blackItem>中国体育彩票</blackItem>
+            <blackItem>福彩</blackItem>
         </blacklist>
     </feed>
     <feed update="20200109000000">
