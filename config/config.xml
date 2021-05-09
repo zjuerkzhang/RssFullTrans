@@ -66,7 +66,7 @@
 	    <url>https://cn.govopendata.com/xinwenlianbo/</url>
         <parser>CctvNewsParser</parser>
     </feed>
-    <feed update="20210509043600">
+    <feed update="20210509073500">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
