@@ -4,6 +4,7 @@ import timestamp_utils
 import re
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+from requestsWrapper import requestsWrapper
 
 class ClTechParser(WebParser):
     def translate_timestamp(self, timeStr):
@@ -22,6 +23,28 @@ class ClTechParser(WebParser):
 
 
     def get_full_description(self, entry):
+        r = self.clHttpClient.get(entry['link'])
+        if r.status_code != 200:
+            self.debug_print("$$$ No valid response " + entry['title'] + ' ' + entry['link'])
+            return entry
+        r.encoding = 'gbk'
+        html = BeautifulSoup(r.text, 'html5lib')
+        if html == None:
+            self.debug_print("$$$ No valid html " + entry['title'] + ' ' + entry['link'])
+            return entry
+        div = html.find('div', attrs = {'class': 'tpc_cont'})
+        if div == None:
+            self.debug_print("$$$ No valid div " + entry['title'] + ' ' + entry['link'])
+            return entry
+        divs = div.find_all('div')
+        for d in divs:
+            d.decompose()
+        imgs = div.find_all('img')
+        for i in imgs:
+            if 'ess-data' in i.attrs.keys():
+                i.attrs = {'src': i.attrs['ess-data']}
+                continue
+        entry['description'] = div.prettify()
         return entry
 
     def __convert_time_from_str_to_int_array(self, s):
@@ -41,16 +64,17 @@ class ClTechParser(WebParser):
         }
 
     def get_abstract_feed(self):
+        self.clHttpClient = requestsWrapper('t66y.com', baseDelay = 4, randomDelay = True, retryCount = 3)
         feed = {
-            'title': 'PengPai News',
+            'title': 'Global News',
             'link': self.url,
-            'description': 'PengPai News',
+            'description': 'Global News',
             'entries': []
         }
         r = self.httpClient.get(self.url)
         if r.status_code != 200:
             return feed
-        r.encoding = "gbk"
+        r.encoding = "utf-8"
         html = BeautifulSoup(r.text, 'html5lib')
         if html == None:
             return feed
@@ -63,10 +87,11 @@ class ClTechParser(WebParser):
 
 if __name__ == "__main__":
     feed_info = {}
-    feed_info['url'] = 'https://bloghz.ddns.net/j/static/caoliu/tech.html'
+    feed_info['url'] = 'https://bloghz.ddns.net/j/static/caoliu/TechNews.html'
     feed_info['name'] = 'ClTechParser'
     feed_info['keywords'] = []
-    feed_info['update'] = '20200106011400'
+    feed_info['update'] = '20210519011400'
+    feed_info['subPages'] = []
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
     parser = ClTechParser(feed_info)
@@ -76,6 +101,6 @@ if __name__ == "__main__":
     for entry in feed_data['entries']:
         print(' '*3 + 'entry_link: ' + entry['link'])
         print(' '*3 + 'entry_title: ' + entry['title'])
-        #print ' '*3 + 'entry_des: ' + entry['description']
+        #print(' '*3 + 'entry_des: ' + entry['description'])
         #print ' '*3 + 'entry_content: ' + entry['content']
 
