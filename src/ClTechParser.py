@@ -21,6 +21,21 @@ class ClTechParser(WebParser):
             return [year, month, day, hh, mm, ss]
         return None
 
+    def __prettifyContent(self, div):
+        imgs = div.find_all('img')
+        for i in imgs:
+            if 'ess-data' in i.attrs.keys():
+                i.attrs = {'src': i.attrs['ess-data']}
+                continue
+        tables = div.find_all('table', attrs ={'cellpadding': '0'})
+        if len(tables) > 0:
+            elementPs = div.find_all('p')
+            if len(elementPs) > 0:
+                contentStr = ''
+                for p in elementPs:
+                    contentStr = contentStr + p.prettify()
+                return contentStr
+        return div.prettify()
 
     def get_full_description(self, entry):
         r = self.clHttpClient.get(entry['link'])
@@ -44,7 +59,7 @@ class ClTechParser(WebParser):
             if 'ess-data' in i.attrs.keys():
                 i.attrs = {'src': i.attrs['ess-data']}
                 continue
-        entry['description'] = div.prettify()
+        entry['description'] = self.__prettifyContent(div)
         return entry
 
     def __convert_time_from_str_to_int_array(self, s):

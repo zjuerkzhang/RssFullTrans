@@ -25,7 +25,14 @@ class PentiParser(WebParser):
         inses = div.find_all('ins')
         for ins in inses:
             ins.decompose()
-        entry['description'] = div.prettify()
+        elementPs = div.find_all('p')
+        if len(elementPs) > 0:
+            contentStr = ''
+            for p in elementPs:
+                contentStr = contentStr + p.prettify()
+            entry['description'] = contentStr
+        else:
+            entry['description'] = div.prettify()
         #print entry['title']
         #print ' '.join(map(lambda x:'%d' % x, entry['published']))
         return entry
