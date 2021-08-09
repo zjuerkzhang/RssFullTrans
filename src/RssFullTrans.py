@@ -16,6 +16,7 @@ from ReutersParser import ReutersParser
 from FTParser import FTParser
 from NYTParser import NYTParser
 from PengpaiParser import PengpaiParser
+from PengpaiUserParser import PengpaiUserParser
 from GuanchaParser import GuanchaParser
 from PentiParser import PentiParser
 from IfanrParser import IfanrParser
@@ -97,6 +98,8 @@ if __name__ == '__main__':
     config_file = config_file_dir + 'config.xml'
     feeds = config_utils.get_feeds_from_xml(config_file)
     for feed in feeds:
+        if feed['enableStatus'] == False:
+            continue
         feed['conf_file'] = config_file
         feed['log_file'] = log_file_dir + feed['name'] + ".log"
         feed['lock'] = lockConfigFile

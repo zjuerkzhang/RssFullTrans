@@ -27,7 +27,12 @@ def get_feeds_from_xml(config_file = sample_config_file):
                     one_feed['title'] = ''
                 else:
                     one_feed['title'] = title.text
-                if 'update' in feed.attrib.keys(): 
+                enabling = feed.find("enableStatus")
+                if enabling != None and enabling.text == "False":
+                    one_feed['enableStatus'] = False
+                else:
+                    one_feed['enableStatus'] = True
+                if 'update' in feed.attrib.keys():
                     one_feed['update'] = feed.attrib['update']
                 else:
                     one_feed['update'] = ''

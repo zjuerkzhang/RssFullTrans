@@ -5,7 +5,7 @@
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
         <parser>FTParser</parser>
     </feed>
-    <feed update="20210808231155">
+    <feed update="20210809110929">
         <title>FT今日焦点-全文</title>
         <name>FtFocusNews</name>
         <url>http://www.ftchinese.com/rss/news</url>
@@ -16,6 +16,7 @@
         <name>NytIntNews</name>
         <url>https://cn.nytimes.com/rss.html</url>
         <parser>NYTParser</parser>
+        <enableStatus>False</enableStatus>
         <blacklist>
             <blackItem>简报</blackItem>
         </blacklist>
@@ -25,14 +26,16 @@
         <name>BbcChinaNews</name>
         <url>http://feeds.bbci.co.uk/news/world/asia/china/rss.xml</url>
         <parser>BbcParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
     <feed update="20201104093200">
         <title>观察者网</title>
         <name>GuanchaNews</name>
         <url>https://m.guancha.cn/</url>
         <parser>GuanchaParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20210808000000">
+    <feed update="20210809000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
@@ -60,18 +63,21 @@
         <name>MicroHistory</name>
 	    <url>https://botanwang.com/taxonomy/term/11792</url>
         <parser>MicroHistoryParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
     <feed update="20210808000000">
         <title>新闻联播</title>
         <name>CctvNews</name>
 	    <url>https://cn.govopendata.com/xinwenlianbo/</url>
         <parser>CctvNewsParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20210806092000">
+    <feed update="20210809133200">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiParser</parser>
+        <enableStatus>False</enableStatus>
         <blacklist>
             <blackItem>习惯的养成</blackItem>
             <blackItem>H5</blackItem>
@@ -100,10 +106,23 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
+    <feed update="20210604123000">
+        <title>澎湃号</title>
+        <name>PengpaiUserArticles</name>
+        <url>https://www.thepaper.cn/</url>
+        <parser>PengpaiUserParser</parser>
+        <blacklist>
+            <blackItem>H5</blackItem>
+        </blacklist>
+        <subPageList>
+            <subPage>user_5065100</subPage>
+        </subPageList>
+    </feed>
     <feed update="20210802100500">
         <title>草榴新闻</title>
         <name>ClTech</name>
         <url>https://bloghz.ddns.net/j/static/caoliu/TechNews.html</url>
         <parser>ClTechParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
 </feeds>
