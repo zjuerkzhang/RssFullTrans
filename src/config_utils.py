@@ -61,12 +61,12 @@ def get_feeds_from_xml(config_file = sample_config_file):
     else:
         return []
 
-def update_feed_timestamp(feed_url, timestamp, config_file = sample_config_file):
+def update_feed_timestamp(feed_name, feed_url, timestamp, config_file = sample_config_file):
     if os.path.isfile(config_file):
         tree = ET.parse(config_file)
         root = tree.getroot()
         feeds = root.findall("feed")
-        ret_feed = list(filter(lambda x:x.find('url').text == feed_url, feeds))
+        ret_feed = list(filter(lambda x:x.find('url').text == feed_url and x.find('name').text == feed_name, feeds))
         if len(ret_feed) > 0:
             ret_feed[0].set('update', timestamp)
             tree.write(config_file, encoding='utf-8', xml_declaration=True)

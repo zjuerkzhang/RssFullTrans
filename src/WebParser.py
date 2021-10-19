@@ -142,7 +142,7 @@ class WebParser(object):
         if len(feed_data['entries']) > 0:
             if (self.lock):
                 self.lock.acquire()
-            config_utils.update_feed_timestamp(self.url, self.new_update, self.conf_file)
+            config_utils.update_feed_timestamp(self.name, self.url, self.new_update, self.conf_file)
             if (self.lock):
                 self.lock.release()
         return feed_data

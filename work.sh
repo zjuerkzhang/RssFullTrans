@@ -1,20 +1,27 @@
 #!/bin/bash
 export LANG="zh_CN.UTF-8"
-export http_proxy="http://10.158.100.2:8080"
-export https_proxy="http://10.158.100.2:8080"
 
-cd /home/kzhang/github/RssFullTrans
+proxyIpAddr="10.158.100.2"
+outStr=`ping -c 1 -W 2 $proxyIpAddr`
+pingStatus=$?
+if [ $pingStatus -eq 0 ]
+then
+    export http_proxy="http://$proxyIpAddr:8080"
+    export https_proxy="http://$proxyIpAddr:8080"
+fi
+
+filePath=$0
+fileDir=`dirname $filePath`
+cd $fileDir
+
 mkdir -p log
 mkdir -p output
 
-html_dir=/home/kzhang/github/fullrss.github.io
+html_dir=$fileDir/../fullrss.github.io
 rss_dir=$html_dir/rss
 
 cp $rss_dir/RSS_*.xml ./output/
 python3 src/RssFullTrans.py
-
-#export http_proxy="http://10.144.1.10:8080"
-#export https_proxy="http://10.144.1.10:8080"
 
 ls ./output/|grep RSS_
 if [ $? -eq 0 ]
@@ -31,5 +38,9 @@ then
     git push --force
 fi
 
-unset http_proxy
-unset https_proxy
+if [ $pingStatus -eq 0 ]
+then
+    unset http_proxy
+    unset https_proxy
+fi
+

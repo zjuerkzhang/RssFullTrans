@@ -66,7 +66,7 @@ class PengpaiUserParser(WebParser):
             'entries': []
         }
         if self.subPage_flag:
-            sub_pages = map(lambda x: {'path': x, 'count': 5}, self.subPages)
+            sub_pages = map(lambda x: {'path': x, 'count': 2}, self.subPages)
         else:
             return feed
 

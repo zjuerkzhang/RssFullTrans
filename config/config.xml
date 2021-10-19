@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-    <feed update="20210806110341">
+    <feed update="20211015113128">
         <title>FT一周十大热门文章-全文</title>
         <url>http://www.ftchinese.com/rss/hotstoryby7day</url>
+        <name>hotstoryby7day</name>
         <parser>FTParser</parser>
+        <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20210809110929">
+    <feed update="20211018232746">
         <title>FT今日焦点-全文</title>
         <name>FtFocusNews</name>
         <url>http://www.ftchinese.com/rss/news</url>
@@ -35,19 +37,19 @@
         <parser>GuanchaParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20210809000000">
+    <feed update="20211018000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20210809010019">
+    <feed update="20211019010300">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20210809000000">
+    <feed update="20211019000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -91,7 +93,7 @@
             <subPage>list_25491</subPage>
         </subPageList>
     </feed>
-    <feed update="20200604123000">
+    <feed update="20211016031900">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
@@ -102,11 +104,10 @@
         </blacklist>
         <subPageList>
             <subPage>list_25635</subPage>
-            <subPage>list_27224</subPage>
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20210604123000">
+    <feed update="20211019033400">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -116,6 +117,30 @@
         </blacklist>
         <subPageList>
             <subPage>user_5065100</subPage>
+            <subPage>user_4336968</subPage>
+            <subPage>user_4556608</subPage>
+            <subPage>user_3454103</subPage>
+            <subPage>user_3444367</subPage>
+            <subPage>user_5126969</subPage>
+            <subPage>user_4852465</subPage>
+            <subPage>user_5070247</subPage>
+            <subPage>user_3641546</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20210809153000">
+        <title>澎湃政务</title>
+        <name>PengpaiGovPub</name>
+        <url>https://www.thepaper.cn/</url>
+        <parser>PengpaiUserParser</parser>
+        <enableStatus>False</enableStatus>
+        <blacklist>
+            <blackItem>H5</blackItem>
+        </blacklist>
+        <subPageList>
+            <subPage>gov_28314</subPage>
+            <subPage>gov_85694</subPage>
+            <subPage>gov_88428</subPage>
+            <subPage>gov_27970</subPage>
         </subPageList>
     </feed>
     <feed update="20210802100500">
