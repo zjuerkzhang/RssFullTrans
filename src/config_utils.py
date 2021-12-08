@@ -56,6 +56,11 @@ def get_feeds_from_xml(config_file = sample_config_file):
                 for sub_page in sub_page_items:
                     sub_pages.append(sub_page.text)
                 one_feed['subPages'] = sub_pages
+                proxy = feed.find('proxy')
+                if proxy != None:
+                    one_feed['proxy'] = proxy.text
+                else:
+                    one_feed['proxy'] = ''
             ret_feeds.append(one_feed)
         return ret_feeds
     else:

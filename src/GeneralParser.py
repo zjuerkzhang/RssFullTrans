@@ -4,6 +4,7 @@ import config_utils
 import datetime
 import timestamp_utils
 import requests
+from urllib.request import ProxyHandler
 
 class GeneralParser(object):
     def __init__(self, feed_info):
@@ -26,6 +27,7 @@ class GeneralParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
+        self.proxy = feed_info['proxy']
         if 'lock' in feed_info.keys():
             self.lock = feed_info['lock']
         else:
@@ -87,7 +89,11 @@ class GeneralParser(object):
 
     def parse(self):
         self.debug_print("last_time for %s %s" % (self.name, self.update))
-        feed = feedparser.parse(self.url)
+        if self.proxy == '':
+            feed = feedparser.parse(self.url)
+        else:
+            proxy_handler = ProxyHandler({'http': self.proxy, 'https':self.proxy})
+            feed = feedparser.parse(self.url, handlers=[proxy_handler])
         feed_data = {
                         'title': feed.feed.title,
                         'link': feed.feed.link,
@@ -100,10 +106,10 @@ class GeneralParser(object):
             if self.__is_entry_new(entry):
                 (yy, mm, dd, hh, MM, ss) = timestamp_utils.getTimeDecFromPubdate(entry['published'])
                 entry_data = {
-                                 'title': entry.title,
-                                 'description': self.get_full_description(entry),
-                                 'link': entry.link,
-                                 'pubDate': datetime.datetime(yy, mm, dd, hh, MM, ss)
+                                'title': entry.title,
+                                'description': self.get_full_description(entry),
+                                'link': entry.link,
+                                'pubDate': datetime.datetime(yy, mm, dd, hh, MM, ss)
                              }
                 feed_data['entries'].append(entry_data)
         if len(feed_data['entries']) > 0:

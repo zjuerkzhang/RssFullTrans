@@ -151,16 +151,4 @@
         <parser>ClTechParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20211208020502">
-        <title>英为财情</title>
-        <name>Investing</name>
-        <url>https://feedx.net/rss/investing.xml</url>
-        <parser>GeneralParser</parser>
-        <proxy>http://127.0.0.1:8080</proxy>
-        <keywords>
-            <keyword>今日财经市场</keyword>
-            <keyword>财经早餐</keyword>
-            <keyword>美股早知道</keyword>
-        </keywords>
-    </feed>
 </feeds>
