@@ -18,6 +18,7 @@ class WebParser(object):
             'log_file': 'log.log'}
         '''
         self.url = feed_info['url']
+        self.host = '/'.join(self.url.split('/')[:3])
         self.httpClient = requests.Session()
         self.name = feed_info['name']
         self.update = feed_info['update']

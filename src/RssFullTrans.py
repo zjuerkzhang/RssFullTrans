@@ -26,6 +26,7 @@ from MicroHistoryParser import MicroHistoryParser
 from CctvNewsParser import CctvNewsParser
 from ClTechParser import ClTechParser
 from GeneralParser import GeneralParser
+from YiqingParser import YiqingParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
