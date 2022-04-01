@@ -38,19 +38,19 @@
         <parser>GuanchaParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220323000000">
+    <feed update="20220401000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20220324012246">
+    <feed update="20220401004830">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20220324000000">
+    <feed update="20220401000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -75,7 +75,7 @@
         <parser>CctvNewsParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220324004000">
+    <feed update="20220401143900">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -88,11 +88,10 @@
             <blackItem>去世</blackItem>
         </blacklist>
         <subPageList>
-        
             <subPage>list_25600</subPage>
         </subPageList>
     </feed>
-    <feed update="20220324004000">
+    <feed update="20220330064900">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
@@ -106,7 +105,22 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20220323055700">
+    <feed update="20220401150300">
+        <title>澎湃号Kindle阅读合集</title>
+        <name>PengpaiUserArticlesForKindle</name>
+        <url>https://www.thepaper.cn/</url>
+        <parser>PengpaiUserParser</parser>
+        <enableStatus>True</enableStatus>
+        <blacklist>
+            <blackItem>H5</blackItem>
+        </blacklist>
+        <subPageList>
+            <subPage>user_4556608</subPage>
+            <subPage>user_3454103</subPage>
+            <subPage>user_5126969</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20220331234800">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -117,10 +131,7 @@
         <subPageList>
             <subPage>user_5065100</subPage>
             <subPage>user_4336968</subPage>
-            <subPage>user_4556608</subPage>
-            <subPage>user_3454103</subPage>
             <subPage>user_3444367</subPage>
-            <subPage>user_5126969</subPage>
             <subPage>user_4852465</subPage>
             <subPage>user_5070247</subPage>
             <subPage>user_3641546</subPage>
@@ -142,6 +153,18 @@
             <subPage>gov_27970</subPage>
         </subPageList>
     </feed>
+    <feed update="20220401120000">
+        <title>微信公众号</title>
+        <name>WechatUserArticles</name>
+        <url>https://www.wxnmh.com/</url>
+        <parser>WxnmhParser</parser>
+        <enableStatus>True</enableStatus>
+        <subPageList>
+            <subPage>user-115792</subPage>
+            <subPage>user-91507</subPage>
+            <subPage>user-112939</subPage>
+        </subPageList>
+    </feed>
     <feed update="20210802100500">
         <title>草榴新闻</title>
         <name>ClTech</name>
@@ -149,7 +172,7 @@
         <parser>ClTechParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220324013502">
+    <feed update="20220401123502">
         <title>英为财情</title>
         <name>Investing</name>
         <url>https://feedx.net/rss/investing.xml</url>
@@ -161,7 +184,7 @@
             <keyword>美股早知道</keyword>
         </keywords>
     </feed>
-    <feed update="20220324012100">
+    <feed update="20220401010600">
         <title>新冠疫情信息</title>
         <name>YiqingNews</name>
         <url>http://www.gov.cn/fuwu/fwtj.htm</url>
