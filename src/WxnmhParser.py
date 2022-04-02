@@ -5,6 +5,7 @@ import timestamp_utils
 import re
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import os
 
 class WxnmhParser(WebParser):
     def get_full_description(self, entry):
@@ -25,7 +26,10 @@ class WxnmhParser(WebParser):
         title = html.find('title')
         if title != None:
             title_str = title.string
-        entry['description'] = title_str + '<br>' + div.prettify().replace("data-src", "src")
+        content = div.prettify()
+        content = content.replace("data-src", "src")
+        content = re.sub('<p>\s*<br\s*/>\s*</p>', '', content)
+        entry['description'] = title_str + '<br>' + content
         return entry
 
     def get_abstract_feed(self):
@@ -58,7 +62,7 @@ class WxnmhParser(WebParser):
                 a = subjectDiv.find('a')
                 if not a:
                     continue
-                self.debug_print("$$$ entry found [%s]" % a.string)
+                #self.debug_print("$$$ entry found [%s]" % a.string)
                 dt = td.find('dt')
                 if dt.prettify().find('小时前') < 0:
                     continue
@@ -86,14 +90,15 @@ class WxnmhParser(WebParser):
 
 
 if __name__ == "__main__":
+    self_dir = os.path.dirname(os.path.abspath(__file__))
     feed_info = {}
     feed_info['url'] = 'https://www.wxnmh.com/'
     feed_info['name'] = 'WechatUserArticles'
     feed_info['keywords'] = []
-    feed_info['subPages'] = ['user-115792', 'user-28079']
+    feed_info['subPages'] = ['user-115792', 'user-91507', 'user-112939']
     feed_info['update'] = '20200106011400'
-    feed_info['conf_file'] = '../config/config.xml'
-    feed_info['log_file'] = '../log/log.log'
+    feed_info['conf_file'] = self_dir + '/../config/config.xml'
+    feed_info['log_file'] = self_dir + '/../log/log.log'
     parser = WxnmhParser(feed_info)
     feed_data = parser.parse()
     print(' '*1 + 'feed_title: ' + feed_data['title'])

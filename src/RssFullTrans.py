@@ -27,6 +27,8 @@ from CctvNewsParser import CctvNewsParser
 from ClTechParser import ClTechParser
 from GeneralParser import GeneralParser
 from YiqingParser import YiqingParser
+from WxnmhParser import WxnmhParser
+from GuanChaUserParser import GuanChaUserParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
