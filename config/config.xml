@@ -38,19 +38,19 @@
         <parser>GuanchaParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220401000000">
+    <feed update="20220407000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20220402010130">
+    <feed update="20220408004121">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20220402000000">
+    <feed update="20220408000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -75,7 +75,7 @@
         <parser>CctvNewsParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220402071500">
+    <feed update="20220408065200">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -91,7 +91,7 @@
             <subPage>list_25600</subPage>
         </subPageList>
     </feed>
-    <feed update="20220402035900">
+    <feed update="20220408000000">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
@@ -105,7 +105,7 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20220402053500">
+    <feed update="20220408062500">
         <title>澎湃号Kindle阅读合集</title>
         <name>PengpaiUserArticlesForKindle</name>
         <url>https://www.thepaper.cn/</url>
@@ -120,7 +120,7 @@
             <subPage>user_5126969</subPage>
         </subPageList>
     </feed>
-    <feed update="20220402053500">
+    <feed update="20220408072700">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -172,7 +172,7 @@
         <parser>ClTechParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220401230502">
+    <feed update="20220408013501">
         <title>英为财情</title>
         <name>Investing</name>
         <url>https://feedx.net/rss/investing.xml</url>
@@ -184,7 +184,7 @@
             <keyword>美股早知道</keyword>
         </keywords>
     </feed>
-    <feed update="20220402013800">
+    <feed update="20220408010800">
         <title>新冠疫情信息</title>
         <name>YiqingNews</name>
         <url>http://www.gov.cn/fuwu/fwtj.htm</url>
@@ -195,13 +195,23 @@
             <keyword>疫情防控最新消息</keyword>
         </keywords>
     </feed>
-    <feed update="20220402010000">
+    <feed update="20220408010000">
         <title>观察者网专栏</title>
         <name>GuanChaUserArticles</name>
         <url>https://user.guancha.cn/user/get-published-list?page_no=1&amp;uid=</url>
         <parser>GuanChaUserParser</parser>
         <subPageList>
             <subPage>794520</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20220401002528">
+        <title>网易订阅</title>
+        <name>NeteaseUser</name>
+        <url>https://www.163.com/dy/media/</url>
+        <parser>NeteaseUserParser</parser>
+        <enableStatus>False</enableStatus>
+        <subPageList>
+            <subPage>T1604148115540.html</subPage>
         </subPageList>
     </feed>
 </feeds>

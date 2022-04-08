@@ -29,6 +29,7 @@ from GeneralParser import GeneralParser
 from YiqingParser import YiqingParser
 from WxnmhParser import WxnmhParser
 from GuanChaUserParser import GuanChaUserParser
+from NeteaseUserParser import NeteaseUserParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
@@ -69,6 +70,13 @@ def transfer_full_article(feed_conf):
     parser = eval(parser_instance_str)
     feed_data = parser.parse()
     if len(feed_data['entries']) > 0:
+        rss_xml_file = xml_file_dir + 'RSS_' + feed_conf['name'] + ".xml"
+        old_entries = []
+        if os.path.isfile(rss_xml_file):
+            old_entries = parse_and_sort_existing_feed_items(rss_xml_file)
+            file_utils.write_to_log_file(feed_conf['log_file'], "--> old entries count from [%s]: %d" % (rss_xml_file, len(old_entries)))
+        old_links = list(map(lambda x:x.link, old_entries))
+
         new_feed = PyRSS2Gen.RSS2(
                title = feed_conf['title'] if len(feed_conf['title']) > 0 else feed_data['title'],
                link = feed_data['link'],
@@ -76,16 +84,18 @@ def transfer_full_article(feed_conf):
                #image = feed.feed.image,
                lastBuildDate = datetime.datetime.now())
         for entry in feed_data['entries']:
+            if entry['link'] in old_links:
+                file_utils.write_to_log_file(feed_conf['log_file'], "--> entry [%s] exists in old entries" % entry['title'])
+                continue
             new_feed.items.append(PyRSS2Gen.RSSItem(
                 title = entry['title'],
                 link = entry['link'],
                 description = entry['description'],
                 pubDate = entry['pubDate']))
-        rss_xml_file = xml_file_dir + 'RSS_' + feed_conf['name'] + ".xml"
-        if (len(new_feed.items) < max_entry_count_in_feed) and os.path.isfile(rss_xml_file):
+
+        if (len(new_feed.items) < max_entry_count_in_feed) and len(old_entries) > 0:
             old_entry_to_merge_count = max_entry_count_in_feed - len(new_feed.items)
             file_utils.write_to_log_file(feed_conf['log_file'], "--> Merge existing feed items")
-            old_entries = parse_and_sort_existing_feed_items(rss_xml_file)
             if len(old_entries) < old_entry_to_merge_count:
                 old_entry_to_merge_count = len(old_entries)
             i = 0

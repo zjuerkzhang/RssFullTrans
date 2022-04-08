@@ -46,7 +46,11 @@ class WxnmhParser(WebParser):
 
         for page in sub_pages:
             url = self.url + page['path']
-            r = self.httpClient.get(url)
+            try:
+                r = self.httpClient.get(url)
+            except:
+                self.debug_print("$$$ exception occurs during fetch [%s]" % url)
+                continue
             if r.status_code != 200:
                 continue
             html = BeautifulSoup(r.text, 'html5lib')
