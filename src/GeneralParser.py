@@ -94,10 +94,18 @@ class GeneralParser(object):
         else:
             proxy_handler = ProxyHandler({'http': self.proxy, 'https':self.proxy})
             feed = feedparser.parse(self.url, handlers=[proxy_handler])
+        if feed.has_key('feed') and feed.feed.has_key('title'):
+            feedTitle = feed.feed.title
+        else:
+            feedTitle = self.name
+        if feed.has_key('feed') and feed.feed.has_key('link'):
+            feedLink = feed.feed.link
+        else:
+            feedLink = self.url
         feed_data = {
-                        'title': feed.feed.title,
-                        'link': feed.feed.link,
-                        'description': "This is the full text parser for feed <" + feed.feed.title + ">",
+                        'title': feedTitle,
+                        'link': feedLink,
+                        'description': "This is the full text parser for feed <" + feedTitle + ">",
                         'entries': [],
                     }
         for entry in feed.entries:
