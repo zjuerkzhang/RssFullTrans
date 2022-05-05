@@ -12,7 +12,11 @@ class WallStreetCnParser(GeneralParser):
             return entry.description
         jsdata = r.json()
         if 'data' in jsdata.keys() and 'content' in jsdata['data'].keys():
-            return jsdata['data']['content']
+            content = jsdata['data']['content']
+            if 'audio_uri' in jsdata['data'].keys():
+                audioElem = '<audio controls><source src="%s" type="audio/mpeg"></audio>' % jsdata['data']['audio_uri']
+                content = audioElem + content
+            return content
         return entry.description
 
 if __name__ == "__main__":
