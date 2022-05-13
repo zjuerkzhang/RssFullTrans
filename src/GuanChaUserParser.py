@@ -71,12 +71,22 @@ class GuanChaUserParser(WebParser):
                 continue
             publishTime = timestamp_utils.adjustTimeByTimezon(1970, 1, 1, 0, 0, 0, 8)
             timeStr = jsdata['data']['items'][0]['created_at']
-            if timeStr.find('小时前') < 0:
+            if timeStr.find('小时前') < 0 and timeStr.find('昨天') < 0:
                 continue
             try:
-                hours = int(timeStr.strip().replace('小时前', ''))
-                pbBjT = datetime.datetime.today() + datetime.timedelta(hours = (0-hours))
-                publishTime = timestamp_utils.adjustTimeByTimezon(pbBjT.year, pbBjT.month, pbBjT.day, pbBjT.hour, 0, 0, 8)
+                if timeStr.find('小时前') >=0:
+                    hours = int(timeStr.strip().replace('小时前', ''))
+                    pbBjT = datetime.datetime.today() + datetime.timedelta(hours = (0-hours))
+                    publishTime = timestamp_utils.adjustTimeByTimezon(pbBjT.year, pbBjT.month, pbBjT.day, pbBjT.hour, 0, 0, 8)
+                if timeStr.find('昨天') >= 0:
+                    yesterdayTimeStr = timeStr.replace('昨天', '').strip()
+                    hourMin = yesterdayTimeStr.split(':')
+                    if len(hourMin) < 2:
+                        continue
+                    hour = int(hourMin[0])
+                    minute = int(hourMin[0])
+                    pbBjT = datetime.datetime.today() + datetime.timedelta(hours = -24)
+                    publishTime = timestamp_utils.adjustTimeByTimezon(pbBjT.year, pbBjT.month, pbBjT.day, hour, minute, 0, 8)
             except:
                 self.debug_print("$$$ Invalid publish date time [%s]" % timeStr)
                 continue
