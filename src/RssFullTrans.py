@@ -31,6 +31,7 @@ from WxnmhParser import WxnmhParser
 from GuanChaUserParser import GuanChaUserParser
 from NeteaseUserParser import NeteaseUserParser
 from WallStreetCnParser import WallStreetCnParser
+from GuanChaZhuanLanParser import GuanChaZhuanLanParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
