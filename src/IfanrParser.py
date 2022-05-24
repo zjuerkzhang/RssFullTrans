@@ -6,10 +6,6 @@ from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class IfanrParser(WebParser):
-    def translate_timestamp(self, timestamp):
-        dt = datetime.datetime.fromtimestamp(timestamp)
-        return [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
-
     def get_abstract_feed(self):
         feed = {
             'title': 'PengPai News',

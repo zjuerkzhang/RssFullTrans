@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class PengpaiUserParser(WebParser):
-    def translate_timestamp(self, timeStr):
+    def translate_timestamp_str(self, timeStr):
         if re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', timeStr) != None:
             [date_str, time_str] = timeStr.split(' ')
             date_array = date_str.split('-')
@@ -44,7 +44,7 @@ class PengpaiUserParser(WebParser):
         if timestamp_str == '':
             self.debug_print("$$$ No valid time string " + entry['title'] + ' ' + entry['link'])
             return entry
-        beijing_time = self.translate_timestamp(timestamp_str)
+        beijing_time = self.translate_timestamp_str(timestamp_str)
         beijing_time.append(8)
         entry['published'] = timestamp_utils.adjustTimeByTimezon(*beijing_time)
         news_path = ''

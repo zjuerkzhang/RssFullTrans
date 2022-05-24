@@ -30,7 +30,7 @@ from YiqingParser import YiqingParser
 from WxnmhParser import WxnmhParser
 from GuanChaUserParser import GuanChaUserParser
 from NeteaseUserParser import NeteaseUserParser
-from WallStreetCnParser import WallStreetCnParser
+from WallStreetCnRadioParser import WallStreetCnRadioParser
 from GuanChaZhuanLanParser import GuanChaZhuanLanParser
 
 max_entry_count_in_feed = 20

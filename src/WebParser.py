@@ -30,13 +30,13 @@ class WebParser(object):
         else:
             self.lock = None
         self.debug_switch_on = 2
-        if len(feed_info['keywords']) <= 0:
+        if 'keywords' not in feed_info.keys() or len(feed_info['keywords']) <= 0:
             self.key_flag = False
             self.keywords = []
         else:
             self.key_flag = True
             self.keywords = feed_info['keywords']
-        if len(feed_info['subPages']) <= 0:
+        if 'subPages' not in feed_info.keys() or len(feed_info['subPages']) <= 0:
             self.subPage_flag = False
             self.subPages = []
         else:
@@ -57,6 +57,10 @@ class WebParser(object):
 
     def get_full_description(self, entry):
         return entry
+
+    def translate_timestamp(self, timestamp):
+        dt = datetime.datetime.fromtimestamp(timestamp)
+        return [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
 
     def __is_entry_new(self, entry):
         #self.debug_print("entry %s published at %s" % (entry['title'], entry_time))
