@@ -54,9 +54,30 @@ class PengpaiUserParser(WebParser):
             if len(a_s) > 0:
                 news_path = path_div.prettify()
         txt_div = html.find('div', attrs={'class': 'news_txt'})
+        nonDisplayElems = txt_div.find_all('audio', attrs = {'style': 'display: none;'})
+        for elem in nonDisplayElems:
+            elem.decompose()
         if txt_div != None:
             entry['description'] = news_path + '<br>' + txt_div.prettify()
         return entry
+
+    def get_news_li_by_retry(self, url, retryLimit):
+        retryCount = 0
+        news_lis = []
+        while retryCount < retryLimit:
+            retryCount = retryCount + 1
+            r = self.httpClient.get(url)
+            if r.status_code != 200:
+                continue
+            html = BeautifulSoup(r.text, 'html5lib')
+            if html == None:
+                continue
+            news_lis = html.find_all('div', attrs={'class', 'news_li'})
+            if len(news_lis) == 0:
+                self.debug_print("$$$ No <div class='news_li'> found in [%s], retry" % url)
+                continue
+            return news_lis
+        return news_lis
 
     def get_abstract_feed(self):
         feed = {
@@ -72,6 +93,7 @@ class PengpaiUserParser(WebParser):
 
         for page in sub_pages:
             url = self.url + page['path']
+            '''
             r = self.httpClient.get(url)
             if r.status_code != 200:
                 continue
@@ -79,8 +101,12 @@ class PengpaiUserParser(WebParser):
             if html == None:
                 continue
             news_lis = html.find_all('div', attrs={'class', 'news_li'})
+            if len(news_lis) == 0:
+                self.debug_print("$$$ No <div class='news_li'> found in [%s]" % url)
             if len(news_lis) > page['count']:
                 news_lis = news_lis[:page['count']]
+            '''
+            news_lis = self.get_news_li_by_retry(url, 2)
             for li in news_lis:
                 a = li.find('a', attrs = {'target': '_blank'})
                 if a == None:
@@ -103,7 +129,7 @@ if __name__ == "__main__":
     feed_info['url'] = 'https://www.thepaper.cn/'
     feed_info['name'] = 'PengpaiUser'
     feed_info['keywords'] = []
-    feed_info['subPages'] = ['user_5065100']
+    feed_info['subPages'] = ['user_5126969']
     feed_info['update'] = '20200106011400'
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
