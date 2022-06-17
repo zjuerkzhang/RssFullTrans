@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-     <feed update="20220610230128">
+     <feed update="20220616230012">
         <title>华尔街见闻早餐FM-Radio</title>
         <url>https://api-one.wallstcn.com/apiv1/search/article?query=华尔街见闻早餐FM-Radio&amp;limit=3</url>
         <name>WallStreetCnFmRadio</name>
@@ -47,19 +47,19 @@
         <parser>GuanchaParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220610000000">
+    <feed update="20220616000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20220610005524">
+    <feed update="20220617012820">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20220611000000">
+    <feed update="20220617000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -84,7 +84,7 @@
         <parser>CctvNewsParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220611005100">
+    <feed update="20220617010600">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -100,7 +100,7 @@
             <subPage>list_25600</subPage>
         </subPageList>
     </feed>
-    <feed update="20220611015400">
+    <feed update="20220617000000">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
@@ -114,7 +114,7 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20220611003200">
+    <feed update="20220617053900">
         <title>澎湃号Kindle阅读合集</title>
         <name>PengpaiUserArticlesForKindle</name>
         <url>https://www.thepaper.cn/</url>
@@ -128,7 +128,7 @@
             <subPage>user_5126969</subPage>
         </subPageList>
     </feed>
-    <feed update="20220611020700">
+    <feed update="20220617030100">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -191,7 +191,7 @@
             <keyword>今日财经市场</keyword>
         </keywords>
     </feed>
-    <feed update="20220611012100">
+    <feed update="20220617010700">
         <title>新冠疫情信息</title>
         <name>YiqingNews</name>
         <url>http://www.gov.cn/fuwu/fwtj.htm</url>
@@ -202,7 +202,7 @@
             <keyword>疫情防控最新消息</keyword>
         </keywords>
     </feed>
-    <feed update="20220605120000">
+    <feed update="20220613140000">
         <title>观察者网专栏</title>
         <name>GuanChaUserArticles</name>
         <url>https://user.guancha.cn/user/get-published-list?page_no=1&amp;uid=</url>
@@ -211,7 +211,7 @@
             <subPage>794520</subPage>
         </subPageList>
     </feed>
-    <feed update="20220515084545">
+    <feed update="20220615111348">
         <title>观察者网名人专栏</title>
         <name>GuanChaZhuanLanArticles</name>
         <url>https://www.guancha.cn/</url>
@@ -233,6 +233,26 @@
         <enableStatus>False</enableStatus>
         <subPageList>
             <subPage>T1604148115540.html</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20220617042709">
+        <title>联合早报-中国聚焦</title>
+        <name>ZaobaoChinaFocus</name>
+        <url>https://www.haozaobao.com/plus/list.php?tid=</url>
+        <parser>HaozaobaoParser</parser>
+        <enableStatus>True</enableStatus>
+        <subPageList>
+            <subPage>17</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20220617042505">
+        <title>联合早报-观点评论</title>
+        <name>ZaobaoComments</name>
+        <url>https://www.haozaobao.com/plus/list.php?tid=</url>
+        <parser>HaozaobaoParser</parser>
+        <enableStatus>True</enableStatus>
+        <subPageList>
+            <subPage>4</subPage>
         </subPageList>
     </feed>
 </feeds>
