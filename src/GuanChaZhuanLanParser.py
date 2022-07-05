@@ -28,6 +28,10 @@ class GuanChaZhuanLanParser(WebParser):
             self.debug_print("$$$ No valid html " + entry['title'] + ' ' + entry['link'])
             return entry
 
+        h3s = html.find_all('h3')
+        if len(h3s) == 1:
+            entry['title'] = h3s[0].string
+
         div = html.find('div', attrs={'class': 'content all-txt'})
         if not div:
             return entry
