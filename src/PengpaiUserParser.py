@@ -57,6 +57,10 @@ class PengpaiUserParser(WebParser):
         nonDisplayElems = txt_div.find_all('audio', attrs = {'style': 'display: none;'})
         for elem in nonDisplayElems:
             elem.decompose()
+        imgs = txt_div.find_all('img')
+        for img in imgs:
+            br = html.new_tag('br')
+            img.insert_after(br)
         if txt_div != None:
             entry['description'] = news_path + '<br>' + txt_div.prettify()
         return entry
@@ -93,6 +97,7 @@ class PengpaiUserParser(WebParser):
 
         for page in sub_pages:
             url = self.url + page['path']
+            #print(url)
             '''
             r = self.httpClient.get(url)
             if r.status_code != 200:
