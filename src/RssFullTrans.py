@@ -33,6 +33,7 @@ from NeteaseUserParser import NeteaseUserParser
 from WallStreetCnRadioParser import WallStreetCnRadioParser
 from GuanChaZhuanLanParser import GuanChaZhuanLanParser
 from HaozaobaoParser import HaozaobaoParser
+from FeedddParser import FeedddParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2

@@ -97,21 +97,11 @@ class PengpaiUserParser(WebParser):
 
         for page in sub_pages:
             url = self.url + page['path']
-            #print(url)
-            '''
-            r = self.httpClient.get(url)
-            if r.status_code != 200:
-                continue
-            html = BeautifulSoup(r.text, 'html5lib')
-            if html == None:
-                continue
-            news_lis = html.find_all('div', attrs={'class', 'news_li'})
+            news_lis = self.get_news_li_by_retry(url, 2)
             if len(news_lis) == 0:
                 self.debug_print("$$$ No <div class='news_li'> found in [%s]" % url)
             if len(news_lis) > page['count']:
                 news_lis = news_lis[:page['count']]
-            '''
-            news_lis = self.get_news_li_by_retry(url, 2)
             for li in news_lis:
                 a = li.find('a', attrs = {'target': '_blank'})
                 if a == None:

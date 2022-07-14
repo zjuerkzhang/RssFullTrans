@@ -84,7 +84,7 @@
         <parser>CctvNewsParser</parser>
         <enableStatus>False</enableStatus>
     </feed>
-    <feed update="20220714011000">
+    <feed update="20220714063400">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -114,7 +114,7 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20220712060700">
+    <feed update="20220714054800">
         <title>澎湃号Kindle阅读合集</title>
         <name>PengpaiUserArticlesForKindle</name>
         <url>https://www.thepaper.cn/</url>
@@ -128,7 +128,7 @@
             <subPage>user_5126969</subPage>
         </subPageList>
     </feed>
-    <feed update="20220713225200">
+    <feed update="20220714054900">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -172,6 +172,20 @@
             <subPage>user-115792</subPage>
             <subPage>user-91507</subPage>
             <subPage>user-112939</subPage>
+        </subPageList>
+    </feed>
+    <feed update="20220713135829">
+        <title>微信公众号</title>
+        <name>WechatUserArticles</name>
+        <url>https://api.feeddd.org/feeds/</url>
+        <parser>FeedddParser</parser>
+        <enableStatus>True</enableStatus>
+        <subPageList>
+            <subPage>6131b5301269c358aa0dec42</subPage>
+            <subPage>6131e1421269c358aa0e1cad</subPage>
+            <subPage>62014453dca58a380c59c4be</subPage>
+            <subPage>61285e90221f954f5e11175f</subPage>
+            <subPage>6131e1421269c358aa0e1b6b</subPage>
         </subPageList>
     </feed>
     <feed update="20210802100500">
