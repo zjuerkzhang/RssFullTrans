@@ -5,34 +5,52 @@ import re
 import feedparser
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import requests
+
+def notifyWechatArticleFetchResult(msgText):
+    jsonMsg = {
+        'subject': '微信公众号转RSS',
+        'channel': 'telegram',
+        'content': msgText
+    }
+    requests.post("https://bloghz.ddns.net/cmd/notify/", json = jsonMsg)
 
 class FeedddParser(WebParser):
     def get_full_description(self, entry):
         r = self.httpClient.get(entry['link'])
         if r.status_code != 200:
-            self.debug_print("$$$ No valid response %s [%s]" % (entry['title'], entry['link']))
-            return entry
+            msgText = "No valid response from %s [%s]" % (entry['title'], entry['link'])
+            self.debug_print(msgText)
+            notifyWechatArticleFetchResult(msgText)
+            return None
         soup = BeautifulSoup(r.text, 'html5lib')
         if soup == None:
-            self.debug_print("$$$ No valid html %s [%s]" % (entry['title'], entry['link']))
-            return entry
+            msgText = "No valid html from %s [%s]" % (entry['title'], entry['link'])
+            self.debug_print(msgText)
+            notifyWechatArticleFetchResult(msgText)
+            return None
+        copyrightLogo = soup.find('span', attrs = {'id': 'copyright_logo'})
+        if copyrightLogo == None:
+            self.debug_print("%s[%s] is not an article, maybe AD, so drop it" % (entry['title'], entry['link']))
+            return None
         div = soup.find('div', attrs = {'class': 'rich_media_content'})
         if div == None:
-            self.debug_print("$$$: Fail to get content from %s [%s]" % (entry['title'], entry['link']))
-            return entry
+            msgText = "Fail to get content from %s [%s]" % (entry['title'], entry['link'])
+            self.debug_print(msgText)
+            notifyWechatArticleFetchResult(msgText)
+            return None
         tagsToRemoveStyle = ['span', 'p', 'em', 'section']
         for tag in tagsToRemoveStyle:
             elems = div.find_all(tag)
             for elem in elems:
                 if elem.has_attr('style'):
                     del elem['style']
-                #if elem.has_attr('style') and re.search('font-size:\s*\d+px;?', elem['style']) != None:
-                #    elem['style'] = re.sub('font-size:\s*\d+px;?', '', elem['style'])
         content = div.prettify()
         content = content.replace("data-src", "src")
         content = re.sub('<p>\s*<br\s*/>\s*</p>', '', content)
         #print("%s|%s\n%s" % (wechatAuthor, title, content))
         entry['description'] = content
+        notifyWechatArticleFetchResult("[%s] is added" % entry['title'])
         return entry
 
     def get_abstract_feed(self):
@@ -70,7 +88,8 @@ if __name__ == "__main__":
         '6131e1421269c358aa0e1cad',
         '62014453dca58a380c59c4be',
         '61285e90221f954f5e11175f',
-        '6131e1421269c358aa0e1b6b'
+        '6131e1421269c358aa0e1b6b',
+        '6131e1401269c358aa0e186f'
     ]
     feed_info['update'] = '20220710011400'
     feed_info['conf_file'] = '../config/config.xml'
@@ -82,7 +101,7 @@ if __name__ == "__main__":
     for entry in feed_data['entries']:
         print(' '*3 + 'entry_link: ' + entry['link'])
         print(' '*3 + 'entry_title: ' + entry['title'])
-        print(' '*3 + 'entry_des: ' + entry['description'])
+        #print(' '*3 + 'entry_des: ' + entry['description'])
         #print(' '*3 + 'entry_content: ' + entry['content'])
         if entry['description'].find(chr(8))>=0:
             print("find \h")

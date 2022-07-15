@@ -126,16 +126,17 @@ class WebParser(object):
             if entry['published'] != None:
                 if self.__is_entry_new(entry):
                     entry = self.get_full_description(entry)
-                    entry_data = {
-                                     'title': entry['title'],
-                                     'description': entry['description'],
-                                     'link': entry['link'],
-                                     'pubDate': datetime.datetime(*entry['published'])
-                                 }
-                    feed_data['entries'].append(entry_data)
+                    if entry != None:
+                        entry_data = {
+                                         'title': entry['title'],
+                                         'description': entry['description'],
+                                         'link': entry['link'],
+                                         'pubDate': datetime.datetime(*entry['published'])
+                                     }
+                        feed_data['entries'].append(entry_data)
             else:
                 entry = self.get_full_description(entry)
-                if self.__is_entry_new(entry):
+                if entry != None and self.__is_entry_new(entry):
                     entry_data = {
                                      'title': entry['title'],
                                      'description': entry['description'],
