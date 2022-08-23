@@ -32,15 +32,15 @@ class PengpaiParser(WebParser):
         if html == None:
             self.debug_print("$$$ No valid html " + entry['title'] + ' ' + entry['link'])
             return entry
-        time_div = html.find('div', attrs={'class': 'news_about'})
+        time_div = html.find('div', attrs={'class': re.compile('^index_headerContent__')})
         if time_div == None:
             self.debug_print("$$$ No valid timestamp " + entry['title'] + ' ' + entry['link'])
             return entry
-        ps = time_div.find_all('p')
+        spans = time_div.find_all('span')
         timestamp_str = ''
-        for p in ps:
-            if len(p.contents) > 0 and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', p.contents[0].strip()) != None:
-                timestamp_str = p.contents[0].strip()
+        for span in spans:
+            if span.string != None and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', span.string.strip()) != None:
+                timestamp_str = span.string.strip()
         if timestamp_str == '':
             self.debug_print("$$$ No valid time string " + entry['title'] + ' ' + entry['link'])
             return entry
@@ -48,12 +48,13 @@ class PengpaiParser(WebParser):
         beijing_time.append(8)
         entry['published'] = timestamp_utils.adjustTimeByTimezon(*beijing_time)
         news_path = ''
-        path_div = html.find('div', attrs={'class': 'news_path'})
-        if path_div != None:
-            a_s = path_div.find_all('a')
-            if len(a_s) > 0:
-                news_path = path_div.prettify()
-        txt_div = html.find('div', attrs={'class': 'news_txt'})
+        path_a = time_div.find('a', attrs={'class': re.compile('^index_inherit__')})
+        if path_a != None:
+            news_path = path_a.prettify()
+        txt_div = html.find('div', attrs={'class': re.compile('^index_cententWrap__')})
+        nonDisplayElems = txt_div.find_all('audio', attrs = {'style': 'display: none;'})
+        for elem in nonDisplayElems:
+            elem.decompose()
         imgs = txt_div.find_all('img')
         for img in imgs:
             br = html.new_tag('br')
@@ -82,21 +83,21 @@ class PengpaiParser(WebParser):
             html = BeautifulSoup(r.text, 'html5lib')
             if html == None:
                 continue
-            news_lis = html.find_all('div', attrs={'class', 'news_li'})
+            news_lis = html.find_all('div', attrs={'class': 'ant-card-body'})
             if len(news_lis) > page['count']:
                 news_lis = news_lis[:page['count']]
             for li in news_lis:
                 h2 = li.find('h2')
                 if h2 == None:
                     continue
-                a = h2.find('a')
+                a = li.find('a', attrs = {'target': '_blank'})
                 if a == None:
                     continue
                 entry = {
-                    'title': a.string,
+                    'title': h2.string,
                     'link': self.url + a['href'],
                     'published': None,
-                    'description': a.string
+                    'description': h2.string
                 }
                 feed['entries'].append(entry)
         return feed

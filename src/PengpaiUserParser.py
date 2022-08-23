@@ -32,28 +32,22 @@ class PengpaiUserParser(WebParser):
         if html == None:
             self.debug_print("$$$ No valid html " + entry['title'] + ' ' + entry['link'])
             return entry
-        time_div = html.find('div', attrs={'class': 'news_about'})
+        time_div = html.find('div', attrs={'class': re.compile('^index_headerContent__')})
         if time_div == None:
             self.debug_print("$$$ No valid timestamp " + entry['title'] + ' ' + entry['link'])
             return entry
-        ps = time_div.find_all('p')
+        spans = time_div.find_all('span')
         timestamp_str = ''
-        for p in ps:
-            if len(p.contents) > 0 and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', p.contents[0].strip()) != None:
-                timestamp_str = p.contents[0].strip()
+        for span in spans:
+            if span.string != None and re.match('\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}', span.string.strip()) != None:
+                timestamp_str = span.string.strip()
         if timestamp_str == '':
             self.debug_print("$$$ No valid time string " + entry['title'] + ' ' + entry['link'])
             return entry
         beijing_time = self.translate_timestamp_str(timestamp_str)
         beijing_time.append(8)
         entry['published'] = timestamp_utils.adjustTimeByTimezon(*beijing_time)
-        news_path = ''
-        path_div = html.find('div', attrs={'class': 'news_path'})
-        if path_div != None:
-            a_s = path_div.find_all('a')
-            if len(a_s) > 0:
-                news_path = path_div.prettify()
-        txt_div = html.find('div', attrs={'class': 'news_txt'})
+        txt_div = html.find('div', attrs={'class': re.compile('^index_cententWrap__')})
         nonDisplayElems = txt_div.find_all('audio', attrs = {'style': 'display: none;'})
         for elem in nonDisplayElems:
             elem.decompose()
@@ -62,26 +56,9 @@ class PengpaiUserParser(WebParser):
             br = html.new_tag('br')
             img.insert_after(br)
         if txt_div != None:
-            entry['description'] = news_path + '<br>' + txt_div.prettify()
+            entry['description'] = txt_div.prettify()
         return entry
 
-    def get_news_li_by_retry(self, url, retryLimit):
-        retryCount = 0
-        news_lis = []
-        while retryCount < retryLimit:
-            retryCount = retryCount + 1
-            r = self.httpClient.get(url)
-            if r.status_code != 200:
-                continue
-            html = BeautifulSoup(r.text, 'html5lib')
-            if html == None:
-                continue
-            news_lis = html.find_all('div', attrs={'class', 'news_li'})
-            if len(news_lis) == 0:
-                self.debug_print("$$$ No <div class='news_li'> found in [%s], retry" % url)
-                continue
-            return news_lis
-        return news_lis
 
     def get_abstract_feed(self):
         feed = {
@@ -91,29 +68,44 @@ class PengpaiUserParser(WebParser):
             'entries': []
         }
         if self.subPage_flag:
-            sub_pages = map(lambda x: {'path': x, 'count': 2}, self.subPages)
+            sub_pages = map(lambda x: {'path': x.replace('user_', ''), 'count': 2}, self.subPages)
         else:
             return feed
+        apiUrl = 'https://api.thepaper.cn/contentapi/cont/pph/user'
 
         for page in sub_pages:
-            url = self.url + page['path']
-            news_lis = self.get_news_li_by_retry(url, 2)
-            if len(news_lis) == 0:
-                self.debug_print("$$$ No <div class='news_li'> found in [%s]" % url)
-            if len(news_lis) > page['count']:
-                news_lis = news_lis[:page['count']]
-            for li in news_lis:
-                a = li.find('a', attrs = {'target': '_blank'})
-                if a == None:
+            postUserJson = {
+                "pphId": page["path"],
+                "pageNum": 1,
+                "pageSize": page["count"]
+            }
+            r = self.httpClient.post(apiUrl, json=postUserJson)
+            if r.status_code != 200:
+                self.debug_print("$$$ Fail to get the json data of [%s]" % page["path"])
+                continue
+            jsdata = r.json()
+            if "code" not in jsdata.keys() or jsdata["code"] != 200:
+                self.debug_print("$$$ no valid 'code' in json data for [%s]" % (page["path"]))
+                self.debug_print("$$$ json data: [%s]" % str(jsdata))
+                continue
+            if "data" not in jsdata.keys() or "list" not in jsdata["data"].keys():
+                self.debug_print("$$$ no valid 'data.list' in json data for [%s]" % (page["path"]))
+                self.debug_print("$$$ json data: [%s]" % str(jsdata))
+            userName = ''
+            for obj in jsdata["data"]["list"]:
+                if "name" not in obj.keys() or "contId" not in obj.keys():
                     continue
-                div = a.find('div', attrs = {'class': 'title'})
-                if div == None:
-                    continue
+                if "authorInfo" in obj.keys() and "sname" in obj["authorInfo"].keys() and userName == '':
+                    userName = obj["authorInfo"]["sname"]
+                if userName == '':
+                    title = obj["name"]
+                else:
+                    title = "%s | %s" (userName, obj["name"])
                 entry = {
-                    'title': div.string,
-                    'link': self.url + a['href'],
+                    'title': title,
+                    'link': "%snewsDetail_forward_%s" % (self.url, obj["contId"]),
                     'published': None,
-                    'description': div.string
+                    'description': title
                 }
                 feed['entries'].append(entry)
         return feed
