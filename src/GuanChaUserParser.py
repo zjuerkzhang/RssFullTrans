@@ -5,6 +5,7 @@ import re
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 import os
+import feedUtils
 
 gHeaders = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -62,6 +63,7 @@ class GuanChaUserParser(WebParser):
         }
 
         for userId in self.subPages:
+            titlesBySameAuthor = feedUtils.getArticleTitlesBySameAuthor(userId)
             url = self.url + userId
             r = self.httpClient.get(url, headers = gHeaders)
             if r.status_code != 200:
@@ -73,6 +75,9 @@ class GuanChaUserParser(WebParser):
             timeStr = jsdata['data']['items'][0]['created_at']
             if timeStr.find('小时前') < 0 and timeStr.find('昨天') < 0:
                 continue
+            if jsdata['data']['items'][0]['title'] in titlesBySameAuthor:
+                    self.debug_print("%s[%s] exist in other source, so skip it" % (jsdata['data']['items'][0]['title'], url))
+                    continue
             try:
                 if timeStr.find('小时前') >=0:
                     hours = int(timeStr.strip().replace('小时前', ''))

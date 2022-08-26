@@ -6,20 +6,8 @@ import feedparser
 from bs4 import BeautifulSoup
 from WebParser import WebParser
 import requests
+import feedUtils
 
-gUserId2RssFeedMap = [
-    {
-        "userId": '62014453dca58a380c59c4be',
-        "rssUrls": [
-            'http://192.168.119.47/rss/RSS_GuanChaUserArticles.xml',
-            'https://bloghz.ddns.net/ppf/wechatRss.xml'
-        ]
-    },
-    {
-        "userId": '616102e99b888e41f5cb64fb',
-        "rssUrls": ['http://192.168.119.47/rss/RSS_PengpaiUserArticlesForKindle.xml']
-    }
-]
 
 def notifyWechatArticleFetchResult(msgText):
     jsonMsg = {
@@ -29,17 +17,6 @@ def notifyWechatArticleFetchResult(msgText):
     }
     requests.post("https://bloghz.ddns.net/cmd/notify/", json = jsonMsg)
 
-def getArticleTitlesFromAnotherRssSource(userId):
-    titles = []
-    userId2RssFeedPairs = list(filter(lambda x: x["userId"] == userId, gUserId2RssFeedMap))
-    if len(userId2RssFeedPairs) == 0:
-        return titles
-    rssUrls = userId2RssFeedPairs[0]["rssUrls"]
-    for url in rssUrls:
-        anotherFeed = feedparser.parse(url)
-        titlesInOneFeed = list(map(lambda x: x.title, anotherFeed.entries))
-        titles.extend(titlesInOneFeed)
-    return titles
 
 class FeedddParser(WebParser):
     def get_full_description(self, entry):
@@ -88,14 +65,14 @@ class FeedddParser(WebParser):
         }
 
         for page in self.subPages:
-            titlesFromOtherSource = getArticleTitlesFromAnotherRssSource(page)
+            titlesBySameAuthor = feedUtils.getArticleTitlesBySameAuthor(page)
             url = self.url + page
             oneFeed = feedparser.parse(url)
             feedAuthor = "No Author"
             if oneFeed.has_key('feed') and oneFeed.feed.has_key('title'):
                 feedAuthor = oneFeed.feed.title
             for oneEntry in oneFeed.entries:
-                if oneEntry.title in titlesFromOtherSource:
+                if oneEntry.title in titlesBySameAuthor:
                     self.debug_print("%s[%s] exist in other source, so skip it" % (oneEntry.title, oneEntry.link))
                     continue
                 entry = {

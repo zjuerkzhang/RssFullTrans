@@ -4,6 +4,7 @@ import timestamp_utils
 import re
 from bs4 import BeautifulSoup
 from WebParser import WebParser
+import feedUtils
 
 class PengpaiUserParser(WebParser):
     def translate_timestamp_str(self, timeStr):
@@ -74,6 +75,7 @@ class PengpaiUserParser(WebParser):
         apiUrl = 'https://api.thepaper.cn/contentapi/cont/pph/user'
 
         for page in sub_pages:
+            titlesBySameAuthor = feedUtils.getArticleTitlesBySameAuthor(page["path"])
             postUserJson = {
                 "pphId": page["path"],
                 "pageNum": 1,
@@ -97,10 +99,13 @@ class PengpaiUserParser(WebParser):
                     continue
                 if "authorInfo" in obj.keys() and "sname" in obj["authorInfo"].keys() and userName == '':
                     userName = obj["authorInfo"]["sname"]
+                if obj["name"] in titlesBySameAuthor:
+                    self.debug_print("%s[PengpaiUser: %s] exist in other source, so skip it" % (obj["name"], page["path"]))
+                    continue
                 if userName == '':
                     title = obj["name"]
                 else:
-                    title = "%s | %s" (userName, obj["name"])
+                    title = "%s | %s" % (userName, obj["name"])
                 entry = {
                     'title': title,
                     'link': "%snewsDetail_forward_%s" % (self.url, obj["contId"]),
