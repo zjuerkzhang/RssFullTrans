@@ -12,7 +12,7 @@ import feedUtils
 def notifyWechatArticleFetchResult(msgText):
     jsonMsg = {
         'subject': '微信公众号转RSS',
-        'channel': 'telegram|bark',
+        'channel': 'telegram',
         'content': msgText
     }
     requests.post("https://bloghz.ddns.net/cmd/notify/", json = jsonMsg)
@@ -74,6 +74,9 @@ class FeedddParser(WebParser):
             for oneEntry in oneFeed.entries:
                 if oneEntry.title in titlesBySameAuthor:
                     self.debug_print("%s[%s] exist in other source, so skip it" % (oneEntry.title, oneEntry.link))
+                    continue
+                if oneEntry.title.find('视频版') == 0:
+                    self.debug_print("%s[%s] is a video page, so skip it" % (oneEntry.title, oneEntry.link))
                     continue
                 entry = {
                     'title': "%s | %s" % (feedAuthor, oneEntry.title),
