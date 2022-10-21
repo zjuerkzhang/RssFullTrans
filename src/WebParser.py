@@ -25,6 +25,7 @@ class WebParser(object):
         self.new_update = self.update
         self.conf_file = feed_info['conf_file']
         self.log_file = feed_info['log_file']
+        self.proxy = feed_info['proxy']
         if 'lock' in feed_info.keys():
             self.lock = feed_info['lock']
         else:
@@ -110,6 +111,17 @@ class WebParser(object):
                 'description': 'This is the description'
             }]
         }
+
+    def getHttpResponseViaProxy(self, url):
+        if self.proxy == '':
+            r = self.httpClient.get(url)
+        else:
+            proxies = {
+                'http': self.proxy,
+                'https': self.proxy
+            }
+            r = self.httpClient.get(url, proxies = proxies)
+        return r
 
     def parse(self):
         self.debug_print("last_time for %s %s" % (self.name, self.update))

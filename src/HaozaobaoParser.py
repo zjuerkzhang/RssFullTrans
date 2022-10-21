@@ -6,10 +6,11 @@ from bs4 import BeautifulSoup
 from WebParser import WebParser
 
 class HaozaobaoParser(WebParser):
+
     def get_full_description(self, entry):
         if entry['published'] == None:
             entry['published'] = [1970, 1, 1, 0, 0, 0]
-        r = self.httpClient.get(entry['link'])
+        r = self.getHttpResponseViaProxy(entry['link'])
         if r.status_code != 200:
             self.debug_print("$$$ No valid response " + entry['title'] + ' ' + entry['link'])
             return entry
@@ -43,7 +44,7 @@ class HaozaobaoParser(WebParser):
 
         for page in sub_pages:
             url = self.url + page['path']
-            r = self.httpClient.get(url)
+            r = self.getHttpResponseViaProxy(url)
             if r.status_code != 200:
                 continue
             #r.encoding = "gb2312"
@@ -86,6 +87,7 @@ if __name__ == "__main__":
     feed_info['name'] = 'HaozaobaoNews'
     feed_info['keywords'] = []
     feed_info['subPages'] = ['4', '17']
+    feed_info['proxy'] = 'http://127.0.0.1:8080'
     feed_info['update'] = '20200106011400'
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
