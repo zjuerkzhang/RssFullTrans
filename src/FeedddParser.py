@@ -36,6 +36,12 @@ class FeedddParser(WebParser):
         if copyrightLogo == None:
             self.debug_print("%s[%s] is not an article, maybe AD, so drop it" % (entry['title'], entry['link']))
             return None
+        jsVideo = soup.find('div', attrs={'class': 'js_video_channel_container'})
+        if jsVideo != None:
+            msgText = "%s [%s] is a video content, skipped" % (entry['title'], entry['link'])
+            self.debug_print(msgText)
+            #notifyWechatArticleFetchResult(msgText)
+            return None
         div = soup.find('div', attrs = {'class': 'rich_media_content'})
         if div == None:
             msgText = "Fail to get content from %s [%s]" % (entry['title'], entry['link'])
