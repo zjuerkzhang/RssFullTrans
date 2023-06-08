@@ -6,7 +6,7 @@ import timestamp_utils
 class WallStreetCnRadioParser(WebParser):
     def get_full_description(self, entry):
         contentUrlPatten = "https://api-one.wallstcn.com/apiv1/content/articles/%s?extract=0"
-        articleId = entry['link'].split('/')[-1]
+        articleId = entry['link'].split('/')[-1].split('?')[0]
         contentJsonUrl = contentUrlPatten % articleId
         r = self.httpClient.get(contentJsonUrl)
         if r.status_code != 200:
@@ -54,6 +54,7 @@ if __name__ == "__main__":
     feed_info['update'] = ''
     feed_info['conf_file'] = '../config/config.xml'
     feed_info['log_file'] = '../log/log.log'
+    feed_info['proxy'] = ''
     parser = eval("WallStreetCnRadioParser(feed_info)")
     feed_data = parser.parse()
     print(' '*1 + 'feed_title: ' + feed_data['title'])

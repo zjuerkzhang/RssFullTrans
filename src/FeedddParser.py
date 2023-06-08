@@ -32,8 +32,9 @@ class FeedddParser(WebParser):
             self.debug_print(msgText)
             notifyWechatArticleFetchResult(msgText)
             return None
+        invisibleJsTags = soup.find('div', attrs={'id': 'js_tags', 'style': 'display: none;'})
         copyrightLogo = soup.find('span', attrs = {'id': 'copyright_logo'})
-        if copyrightLogo == None:
+        if copyrightLogo == None and invisibleJsTags != None:
             self.debug_print("%s[%s] is not an article, maybe AD, so drop it" % (entry['title'], entry['link']))
             return None
         jsVideo = soup.find('div', attrs={'class': 'js_video_channel_container'})
