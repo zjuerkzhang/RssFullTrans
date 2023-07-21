@@ -15,7 +15,7 @@ def notifyWechatArticleFetchResult(msgText):
         'channel': 'telegram',
         'content': msgText
     }
-    requests.post("https://bloghz.ddns.net/cmd/notify/", json = jsonMsg)
+    requests.post("https://totototot.asuscomm.com/cmd/notify/", json = jsonMsg)
 
 
 class FeedddParser(WebParser):

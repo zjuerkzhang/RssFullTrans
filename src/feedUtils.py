@@ -14,7 +14,7 @@ gRedundantRssFeedForOneAuthor = [
             },
             {
                 "userId": '',
-                "rssUrl": 'https://bloghz.ddns.net/ppf/wechatRss.xml'
+                "rssUrl": 'https://totototot.asuscomm.com/ppf/wechatRss.xml'
             }
         ]
     },
@@ -35,7 +35,7 @@ gRedundantRssFeedForOneAuthor = [
             },
             {
                 "userId": '',
-                "rssUrl": 'https://bloghz.ddns.net/ppf/wechatRss.xml'
+                "rssUrl": 'https://totototot.asuscomm.com/ppf/wechatRss.xml'
             }
         ]
     }

@@ -102,7 +102,7 @@ class ClTechParser(WebParser):
 
 if __name__ == "__main__":
     feed_info = {}
-    feed_info['url'] = 'https://bloghz.ddns.net/j/static/caoliu/TechNews.html'
+    feed_info['url'] = 'https://totototot.asuscomm.com/j/static/caoliu/TechNews.html'
     feed_info['name'] = 'ClTechParser'
     feed_info['keywords'] = []
     feed_info['update'] = '20210519011400'
