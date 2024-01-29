@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <feeds>
-     <feed update="20230720230418">
+     <feed update="20240128230040">
         <title>华尔街见闻早餐FM-Radio</title>
         <url>https://api-one.wallstcn.com/apiv1/search/article?query=华尔街见闻早餐FM-Radio&amp;limit=3</url>
         <name>WallStreetCnFmRadio</name>
@@ -9,19 +9,19 @@
             <keyword>华尔街见闻早餐</keyword>
         </keywords>
     </feed>
-    <feed update="20230720000000">
+    <feed update="20240128000000">
         <title>喷嚏图卦</title>
         <name>PentiNews</name>
         <url>http://www.dapenti.com/blog/blog.asp?subjectid=70&amp;name=xilei</url>
         <parser>PentiParser</parser>
     </feed>
-    <feed update="20230721003716">
+    <feed update="20240129003033">
         <title>爱范儿-早报</title>
         <name>IfanrNews</name>
         <url>https://sso.ifanr.com/api/v5/wp/article/?post_category=%E6%97%A9%E6%8A%A5</url>
         <parser>IfanrParser</parser>
     </feed>
-    <feed update="20230720000000">
+    <feed update="20240128000000">
         <title>都市快报-杭州新闻</title>
         <name>DskbNews</name>
         <url>http://mdaily.hangzhou.com.cn/dskb/index.html</url>
@@ -32,7 +32,7 @@
             <blackItem>福彩</blackItem>
         </blacklist>
     </feed>
-    <feed update="20230721064000">
+    <feed update="20240129011000">
         <title>澎湃新闻</title>
         <name>PengpaiNews</name>
         <url>https://www.thepaper.cn/</url>
@@ -48,7 +48,7 @@
             <subPage>list_25600</subPage>
         </subPageList>
     </feed>
-    <feed update="20230719230800">
+    <feed update="20240129005300">
         <title>澎湃评论</title>
         <name>PengpaiComments</name>
         <url>https://www.thepaper.cn/</url>
@@ -62,12 +62,12 @@
             <subPage>list_25427</subPage>
         </subPageList>
     </feed>
-    <feed update="20230720052500">
+    <feed update="20230802041600">
         <title>澎湃号Kindle阅读合集</title>
         <name>PengpaiUserArticlesForKindle</name>
         <url>https://www.thepaper.cn/</url>
         <parser>PengpaiUserParser</parser>
-        <enableStatus>True</enableStatus>
+        <enableStatus>False</enableStatus>
         <blacklist>
             <blackItem>H5</blackItem>
         </blacklist>
@@ -76,7 +76,7 @@
             <subPage>user_5126969</subPage>
         </subPageList>
     </feed>
-    <feed update="20230721034500">
+    <feed update="20240127230500">
         <title>澎湃号</title>
         <name>PengpaiUserArticles</name>
         <url>https://www.thepaper.cn/</url>
@@ -92,6 +92,7 @@
             <subPage>user_4852465</subPage>
             <subPage>user_5070247</subPage>
             <subPage>user_3641546</subPage>
+            <subPage>user_4556608</subPage>
         </subPageList>
     </feed>
     <feed update="20230621234235">
@@ -99,7 +100,7 @@
         <name>WechatUserArticles</name>
         <url>https://feed.hamibot.com/api/feeds/</url>
         <parser>FeedddParser</parser>
-        <enableStatus>True</enableStatus>
+        <enableStatus>False</enableStatus>
         <subPageList>
             <subPage>6131b5301269c358aa0dec42</subPage>
             <subPage>6131e1421269c358aa0e1cad</subPage>
@@ -117,7 +118,7 @@
             <subPage>64053d2ae119084077ef9a93</subPage>
         </subPageList>
     </feed>
-    <feed update="20230720113503">
+    <feed update="20240126120502">
         <title>英为财情</title>
         <name>Investing</name>
         <url>https://feedx.net/rss/investing.xml</url>
@@ -138,16 +139,17 @@
             <keyword>疫情防控最新消息</keyword>
         </keywords>
     </feed>
-    <feed update="20230717010000">
+    <feed update="20230729132100">
         <title>观察者网专栏</title>
         <name>GuanChaUserArticles</name>
         <url>https://user.guancha.cn/user/get-published-list?page_no=1&amp;uid=</url>
         <parser>GuanChaUserParser</parser>
+        <enableStatus>False</enableStatus>
         <subPageList>
             <subPage>794520</subPage>
         </subPageList>
     </feed>
-    <feed update="20230531122430">
+    <feed update="20231226132200">
         <title>观察者网名人专栏</title>
         <name>GuanChaZhuanLanArticles</name>
         <url>https://www.guancha.cn/</url>
@@ -161,7 +163,7 @@
         </subPageList>
         <enableStatus>True</enableStatus>
     </feed>
-    <feed update="20230721041556">
+    <feed update="20240129005033">
         <title>联合早报-中国聚焦</title>
         <name>ZaobaoChinaFocus</name>
         <url>https://www.kzaobao.com/plus/list.php?tid=</url>
@@ -172,7 +174,7 @@
             <subPage>17</subPage>
         </subPageList>
     </feed>
-    <feed update="20230721001011">
+    <feed update="20240129001047">
         <title>联合早报-国际新闻</title>
         <name>ZaobaoWorldNews</name>
         <url>https://www.kzaobao.com/plus/list.php?tid=</url>
@@ -183,7 +185,7 @@
             <subPage>34</subPage>
         </subPageList>
     </feed>
-    <feed update="20230720234555">
+    <feed update="20240128234540">
         <title>联合早报-观点评论</title>
         <name>ZaobaoComments</name>
         <url>https://www.kzaobao.com/plus/list.php?tid=</url>
