@@ -56,6 +56,9 @@ class GeneralParser(object):
         ret_str = entry.description
         return ret_str
 
+    def abstract_title(self, entry):
+        return entry.title
+
     def __is_entry_new(self, entry):
         entry_time = "%04d%02d%02d%02d%02d%02d" % entry.published_parsed[:6]
         if entry_time > self.update:
@@ -112,9 +115,11 @@ class GeneralParser(object):
             if (not self.__is_entry_contain_key(entry.title)) or self.__is_entry_contain_blackitem(entry.title):
                 continue
             if self.__is_entry_new(entry):
+                #print(entry.title)
+                #print(entry['published'])
                 (yy, mm, dd, hh, MM, ss) = timestamp_utils.getTimeDecFromPubdate(entry['published'])
                 entry_data = {
-                                'title': entry.title,
+                                'title': self.abstract_title(entry),
                                 'description': self.get_full_description(entry),
                                 'link': entry.link,
                                 'pubDate': datetime.datetime(yy, mm, dd, hh, MM, ss)

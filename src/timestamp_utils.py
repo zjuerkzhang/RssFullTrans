@@ -1,4 +1,5 @@
 import datetime
+import re
 
 def changeMonthValue(month):
     if month == 'Jan':
@@ -47,15 +48,32 @@ def adjustTimeByTimezon(year, month, date, hh, MM, ss, zone):
 
 def getTimeDecFromPubdate(pubdate):
     date_strs = pubdate.split(' ')
-    year = int(date_strs[3])
-    month = int(changeMonthValue(date_strs[2]))
-    date = int(date_strs[1])
-    time_strs = date_strs[4].split(':')
-    hh = int(time_strs[0])
-    MM = int(time_strs[1])
-    ss = int(time_strs[2])
-    time_zone_value = getTimeZoneValue(date_strs[5])
-    return adjustTimeByTimezon(year, month, date, hh, MM, ss, time_zone_value)
+    if len(date_strs) >= 6:
+        year = int(date_strs[3])
+        month = int(changeMonthValue(date_strs[2]))
+        date = int(date_strs[1])
+        time_strs = date_strs[4].split(':')
+        hh = int(time_strs[0])
+        MM = int(time_strs[1])
+        ss = int(time_strs[2])
+        time_zone_value = getTimeZoneValue(date_strs[5])
+        return adjustTimeByTimezon(year, month, date, hh, MM, ss, time_zone_value)
+    elif re.match("^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\+[0-9]{2}:[0-9]{2}", pubdate):
+        dateStr = pubdate.split("T")[0]
+        timeStr = pubdate.split("T")[1]
+        ymdStrs = dateStr.split('-')
+        year = int(ymdStrs[0])
+        month = int(ymdStrs[1])
+        date = int(ymdStrs[2])
+        hmsStrs = timeStr.split('+')[0].split(':')
+        hh = int(hmsStrs[0])
+        MM = int(hmsStrs[0])
+        ss = int(hmsStrs[0])
+        time_zone_value = getTimeZoneValue(timeStr.split('+')[1])
+        return adjustTimeByTimezon(year, month, date, hh, MM, ss, time_zone_value)
+    else:
+        return (1970, 1, 1, 1, 1, 1)
+
 
 if __name__ == '__main__':
     pubdate = 'Fri, 30 Nov 2018 11:08:19 +0800'

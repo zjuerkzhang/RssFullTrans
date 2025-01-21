@@ -34,6 +34,7 @@ from WallStreetCnRadioParser import WallStreetCnRadioParser
 from GuanChaZhuanLanParser import GuanChaZhuanLanParser
 from HaozaobaoParser import HaozaobaoParser
 from FeedddParser import FeedddParser
+from ZhuNewsParser import ZhuNewsParser
 
 max_entry_count_in_feed = 20
 debug_switch_on   = 2
@@ -122,7 +123,7 @@ if __name__ == '__main__':
         feed['log_file'] = log_file_dir + feed['name'] + ".log"
         feed['lock'] = lockConfigFile
         thread_entry = threading.Thread(target=transfer_full_article, args=(feed,), name="thread-" + feed['name'])
-        thread_entry.setDaemon(True)
+        thread_entry.daemon = True
         thread_array.append(thread_entry)
         thread_entry.start()
         file_utils.write_to_log_file(log_file_dir + "main.log", "start %s" % thread_entry.name)

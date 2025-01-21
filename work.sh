@@ -25,7 +25,7 @@ python3 src/RssFullTrans.py
 curl -s -x http://127.0.0.1:8080 https://feedx.net/rss/idaily.xml -o ./output/RSS_idaily.xml
 curl -s -x http://127.0.0.1:8080 https://feedx.net/rss/zaobao.xml -o ./output/RSS_zaobao.xml
 curl -s -x http://127.0.0.1:8080 https://feedx.net/rss/shiwen.xml -o ./output/RSS_shiwen.xml
-curl -s "https://rarbg.to/rssdd.php?categories=2;4" -o ./output/RSS_rarbg.xml
+#curl -s "https://rarbg.to/rssdd.php?categories=2;4" -o ./output/RSS_rarbg.xml
 curl -s "https://totototot.asuscomm.com/ppf/wechatRss.xml" -o ./output/RSS_wechatManualPush.xml
 curl -s "https://feeds.appinn.com/appinns/" -o ./output/RSS_appinns.xml
 
@@ -41,7 +41,7 @@ then
     git commit -m "$msg"
     git reset --soft 9a4a6017883d78fd382ffc61c4164d73331ddd02
     git commit -m "`date`"
-    git push --force
+    #git push --force
 fi
 
 if [ $pingStatus -eq 0 ]
